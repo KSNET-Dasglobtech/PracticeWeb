@@ -1,0 +1,489 @@
+﻿
+@{
+    ViewBag.Title = "Schedule";
+    ViewBag.PageName = "schedule";
+}
+
+<div class="content-wrapper">
+    <!-- Page header -->
+    <div class="page-header page-header-default">
+        <div class="page-header-content">
+            <div class="page-title">
+                <h4>
+                    <i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Schedule</span>  <!-- Button trigger modal -->
+                    <button type="button" class="btn btn_add_patient pull-right" data-toggle="modal" data-target="#model_AddPatient">
+                        <b> Add Patient</b>
+                    </button>
+                </h4>
+            </div>
+        </div>
+
+        <div class="breadcrumb-line">
+            <ul class="breadcrumb">
+                <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
+                <li class="active">Schedule</li>
+            </ul>
+
+            <ul class="breadcrumb-elements">
+                <li><a href="#"><i class="icon-comment-discussion position-left"></i> Support</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="icon-gear position-left"></i>
+                        Settings
+                        <span class="caret"></span>
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a href="#"><i class="icon-user-lock"></i> Account security</a></li>
+                        <li><a href="#"><i class="icon-statistics"></i> Analytics</a></li>
+                        <li><a href="#"><i class="icon-accessibility"></i> Accessibility</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#"><i class="icon-gear"></i> All settings</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- /page header -->
+    <!-- Content area -->
+    <div class="content">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+
+                <div class="panel panel-flat">
+                    <div class="panel-body">
+
+                        <div class="content-wrapper">
+
+                            <!-- Page header -->
+                            <div class="page-header page-header-default">
+                                <div class="page-header-content">
+                                    <div class="page-title">
+                                        <h4>
+                                            <i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Schedule</span>  <!-- Button trigger modal -->
+                                            <button type="button" class="btn btn_add_patient pull-right" data-toggle="modal" data-target="#model_AddPatient">
+                                                <b> Add Patient</b>
+                                            </button>
+                                        </h4>
+                                    </div>
+                                </div>
+
+                                <div class="breadcrumb-line">
+                                    <ul class="breadcrumb">
+                                        <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
+                                        <li class="active">Schedule</li>
+                                    </ul>
+
+                                    <ul class="breadcrumb-elements">
+                                        <li><a href="#"> <strong>Waiting:</strong> 0 </a></li>
+                                        <li><a href="#"> <strong>Seated:</strong> 0 </a></li>
+                                        <li><a href="#"> <strong>Ready for Checkout:</strong> 0 </a></li>
+                                        <li><a href="#"> <strong>Dismissed:</strong> 0 </a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- /page header -->
+                            <!-- Content area -->
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+
+                                        <div class="panel panel-flat">
+                                            <div class="panel-body">
+
+                                                <div class="row">
+                                                    <div class="col-md-10 col-sm-9 col-xs-12">
+                                                        <div id="team-schedule">
+                                                            <div id="people">
+                                                                <div class="navbar">
+
+                                                                    <div class="navbar-header">
+                                                                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                                                                            <span class="sr-only">Toggle navigation</span>
+                                                                            <span class="icon-bar"></span>
+                                                                            <span class="icon-bar"></span>
+                                                                            <span class="icon-bar"></span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
+                                                                        <ul class="nav navbar-nav">
+                                                                            <li class="link1"><a href="#">Casa Grande</a></li>
+                                                                            <li class="link2"><a href="#">Chandler</a></li>
+                                                                            <li class="link3 active"><a href="#contact">Phoenix</a></li>
+                                                                            <li class="link4"><a href="#">Tatum</a></li>
+                                                                        </ul>
+                                                                    </div><!--/.nav-collapse -->
+
+                                                                </div>
+
+                                                            </div>
+
+
+                                                            <div class="search_block">
+                                                                <input type="text" class="search_feild" placeholder="Search here..." />
+                                                                <input type="submit" value="search" class="search_btn" />
+                                                            </div>
+                                                        </div>
+                                                        <div id="scheduler"></div>
+                                                    </div>
+                                                    <div class="col-md-2 col-sm-3 col-xs-12 sidebar_right">
+                                                        <div class="panel text-center Occupied_box">
+                                                            <div class="panel-heading">
+                                                                <h5 class="panel-title">Consult</h5>
+                                                            </div>
+                                                            <div class="panel-body">
+                                                                Occupied
+                                                            </div>
+                                                        </div>
+                                                        <!-- end panel -->
+
+                                                        <div class="panel text-center Occupied_box">
+                                                            <div class="panel-heading">
+                                                                <h5 class="panel-title">Chair 1</h5>
+                                                            </div>
+                                                            <div class="panel-body">
+                                                                Occupied
+                                                            </div>
+                                                        </div>
+                                                        <!-- end panel -->
+
+                                                        <div class="panel text-center free_box">
+                                                            <div class="panel-heading">
+                                                                <h5 class="panel-title">Chair 2</h5>
+                                                            </div>
+                                                            <div class="panel-body">
+                                                                <span class="blink">Free</span>
+                                                            </div>
+                                                        </div>
+                                                        <!-- end panel -->
+
+                                                        <div class="panel text-center Occupied_box">
+                                                            <div class="panel-heading">
+                                                                <h5 class="panel-title">Chair 3</h5>
+                                                            </div>
+                                                            <div class="panel-body">
+                                                                Occupied
+                                                            </div>
+                                                        </div>
+                                                        <!-- end panel -->
+
+                                                        <div class="panel text-center Occupied_box">
+                                                            <div class="panel-heading">
+                                                                <h5 class="panel-title">Chair 4</h5>
+                                                            </div>
+                                                            <div class="panel-body">
+                                                                Occupied
+                                                            </div>
+                                                        </div>
+                                                        <!-- end panel -->
+
+                                                        <div class="panel text-center Occupied_box">
+                                                            <div class="panel-heading">
+                                                                <h5 class="panel-title">Chair 5</h5>
+                                                            </div>
+                                                            <div class="panel-body">
+                                                                Occupied
+                                                            </div>
+                                                        </div>
+                                                        <!-- end panel -->
+
+                                                        <div class="panel text-center Occupied_box">
+                                                            <div class="panel-heading">
+                                                                <h5 class="panel-title">Chair 6</h5>
+                                                            </div>
+                                                            <div class="panel-body">
+                                                                Occupied
+                                                            </div>
+                                                        </div>
+                                                        <!-- end panel -->
+                                                    </div>
+                                                </div>
+
+
+                                                <script>
+
+
+
+                                                    $(function () {
+
+                                                        $("#scheduler").kendoScheduler({
+                                                            date: new Date(),
+                                                            majorTick: 15, // a major tick represents 120 minutes (2 hours)
+                                                            minorTickCount: 1,
+                                                            majorTimeHeaderTemplate: kendo.template("<strong>#=kendo.toString(date, 'h')#</strong><sup>#=kendo.toString(date, 'mm')#</sup>"),
+                                                            startTime: new Date("2017/8/01 10:00 AM"),
+                                                            height: 630,
+                                                            views: [
+                                                                //"day",
+                                                                { type: "day", selected: true },
+                                                                //"week",
+                                                                { type: "week", title: "Week" },
+                                                                { type: "month", title: "Month" },
+                                                                { type: "agenda", title: "List View" }
+                                                            ],
+
+                                                            timezone: "Etc/UTC",
+                                                            editable: {
+                                                                template: $("#editor").html()
+                                                            },
+
+                                                            dataSource: {
+                                                                batch: true,
+
+                                                                transport: {
+                                                                    read: {
+                                                                        url: "https://demos.telerik.com/kendo-ui/service/meetings",
+                                                                        dataType: "jsonp"
+                                                                    },
+                                                                    update: {
+                                                                        url: "https://demos.telerik.com/kendo-ui/service/meetings/update",
+                                                                        dataType: "jsonp"
+                                                                    },
+                                                                    create: {
+                                                                        url: "https://demos.telerik.com/kendo-ui/service/meetings/create",
+                                                                        dataType: "jsonp"
+                                                                    },
+                                                                    destroy: {
+                                                                        url: "https://demos.telerik.com/kendo-ui/service/meetings/destroy",
+                                                                        dataType: "jsonp"
+                                                                    },
+                                                                    parameterMap: function (options, operation) {
+                                                                        if (operation !== "read" && options.models) {
+                                                                            return { models: kendo.stringify(options.models) };
+                                                                        }
+                                                                    }
+                                                                },
+                                                                schema: {
+                                                                    model: {
+                                                                        id: "meetingID",
+                                                                        fields: {
+                                                                            meetingID: { from: "MeetingID", type: "number" },
+                                                                            title: { from: "Title", defaultValue: "Search Patient", validation: { required: true } },
+                                                                            start: { type: "date", from: "Start" },
+                                                                            end: { type: "date", from: "End" },
+                                                                            startTimezone: { from: "StartTimezone" },
+                                                                            endTimezone: { from: "EndTimezone" },
+                                                                            description: { from: "sfsd" },
+                                                                            recurrenceId: { from: "RecurrenceID" },
+                                                                            recurrenceRule: { from: "RecurrenceRule" },
+                                                                            recurrenceException: { from: "RecurrenceException" },
+                                                                            roomId: { from: "RoomID", nullable: true },
+                                                                            attendees: { from: "Attendees", nullable: true },
+                                                                            isAllDay: { type: "boolean", from: "IsAllDay" }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            },
+                                                            group: {
+                                                                date: true,
+                                                                resources: ["Rooms"]
+
+                                                            },
+                                                            resources: [
+
+                                                                {
+                                                                    field: "roomId",
+                                                                    name: "Rooms",
+                                                                    dataSource: [
+                                                                        { text: "Consult", value: 1, color: "#ff6700" },
+                                                                        { text: "Chair 1", value: 2, color: "#5cae30" },
+                                                                        { text: "Chair 2", value: 3, color: "#286eb2" },
+                                                                        { text: "Chair 3", value: 4, color: "#db42e8" },
+                                                                        { text: "Chair 4", value: 5, color: "#f58a8a" },
+                                                                        { text: "Chair 5", value: 6, color: "#647bff" },
+                                                                        { text: "Chair 6", value: 7, color: "#fef197" }
+                                                                    ],
+                                                                    title: "Chair"
+                                                                },
+                                                                {
+                                                                    field: "attendees",
+                                                                    name: "Attendees",
+                                                                    dataSource: [
+                                                                        { text: "Casa Grande", value: 1, color: "#ff6700" },
+                                                                        { text: "Chandler", value: 2, color: "#5cae30" },
+                                                                        { text: "Phoenix", value: 3, color: "#286eb2" },
+                                                                        { text: "Tatum", value: 4, color: "#db42e8" }
+                                                                    ],
+                                                                    multiple: true,
+                                                                    title: "Doctors"
+                                                                }
+                                                            ]
+                                                        });
+
+
+                                                        var scheduler = $("#scheduler").data("kendoScheduler");
+
+
+                                                        $(".search_btn").click(function () {
+                                                            scheduler.addEvent({});
+                                                            $(".k-widget.k-window").addClass("bookedAppointement");
+                                                        });
+
+                                                        $("#orientation").kendoDropDownList({
+                                                            value: scheduler.options.group.orientation,
+                                                            change: function () {
+                                                                scheduler.options.group.orientation = this.value();
+                                                                scheduler.view(scheduler.view().name);
+                                                            }
+                                                        });
+                                                    });
+
+                                                </script>
+
+                                                <style>
+
+									.k-scheduler-table .k-slot-cell { text-align:center;}
+
+									#team-schedule #people label { background:#fff; border-bottom:solid 5px #ff6700;  padding:10px 25px;    padding-left: 25px;     line-height: normal;  margin-left:0; float:left;     font-weight: 500;  font-size:15px  }
+									#team-schedule input[type="checkbox"]  { margin-top:0}
+
+
+
+
+									.sidebar_right  { padding-top:40px}
+									.sidebar_right .panel-heading {
+									     padding: 5px 10px;
+									}
+									.sidebar_right .panel-body {
+										padding: 5px 10px;
+									}
+									.sidebar_right .Occupied_box .panel-heading {
+										background:#d18b05;
+									}
+									.sidebar_right .Occupied_box .panel-heading h5  {
+										color:#fff;
+										font-weight:500;
+										font-size:14px;
+									}
+									.sidebar_right .Occupied_box .panel-body {
+										 font-size:18px;
+										 color:#d18b05;
+										 font-weight:600;
+									}
+
+									.sidebar_right .free_box .panel-heading {
+										background:#3e9212;
+									}
+									.sidebar_right .free_box .panel-heading h5  {
+										color:#fff;
+										font-weight:500;
+										font-size:14px;
+									}
+
+									.sidebar_right .free_box .panel-body {
+										 font-size:18px;
+										 color:#3e9212;
+										 font-weight:600;
+									}
+
+									.blink {
+										-webkit-animation: blink .75s linear infinite;
+										-moz-animation: blink .75s linear infinite;
+										-ms-animation: blink .75s linear infinite;
+										-o-animation: blink .75s linear infinite;
+										 animation: blink .75s linear infinite;
+									}
+									@-webkit-keyframes blink {
+										0% { opacity: 1; }
+										50% { opacity: 1; }
+										50.01% { opacity: 0; }
+										100% { opacity: 0; }
+									}
+									@-moz-keyframes blink {
+										0% { opacity: 1; }
+										50% { opacity: 1; }
+										50.01% { opacity: 0; }
+										100% { opacity: 0; }
+									}
+									@-ms-keyframes blink {
+										0% { opacity: 1; }
+										50% { opacity: 1; }
+										50.01% { opacity: 0; }
+										100% { opacity: 0; }
+									}
+									@-o-keyframes blink {
+										0% { opacity: 1; }
+										50% { opacity: 1; }
+										50.01% { opacity: 0; }
+										100% { opacity: 0; }
+									}
+									@keyframes blink {
+										0% { opacity: 1; }
+										50% { opacity: 1; }
+										50.01% { opacity: 0; }
+										100% { opacity: 0; }
+									}
+									/* @end */
+
+									.k-nav-current > .k-link span + span {
+										max-width: 200px;
+										display: inline-block;
+										white-space: nowrap;
+										text-overflow: ellipsis;
+										overflow: hidden;
+										vertical-align: top;
+									}
+
+									#team-schedule {
+										height: 43px;
+										position: relative;
+									}
+
+									#people {
+										position: absolute;
+										left: 0;
+									}
+									#alex {
+										position: absolute;
+										left: 4px;
+										top: 81px;
+									}
+									#bob {
+										position: absolute;
+										left: 119px;
+										top: 81px;
+									}
+									#charlie {
+										position: absolute;
+										left: 234px;
+										top: 81px;
+									}
+                                                </style>
+
+                                            </div>
+                                            <!-- end panel-body -->
+
+                                        </div>
+                                        <!-- end panel -->
+
+                                    </div>
+                                </div>
+                                <!-- Footer -->
+                                <div class="footer text-muted">
+                                    &copy; 2017. PW-Admin
+                                </div>
+                                <!-- /footer -->
+
+                            </div>
+                            <!-- /content area -->
+
+                        </div>
+
+                    </div>
+                    <!-- end panel-body -->
+
+                </div>
+                <!-- end panel -->
+
+            </div>
+        </div>
+        <!-- Footer -->
+        <div class="footer text-muted">
+            &copy; 2017. PW-Admin
+        </div>
+        <!-- /footer -->
+
+    </div>
+    <!-- /content area -->
+
+</div>

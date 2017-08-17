@@ -1,0 +1,84 @@
+.scheduler_default_corner div:nth-of-type(2) {
+    display: none !important;
+}
+
+.schedule_table > tbody > tr > td { padding: 5px 10px; }
+.book1 { background:#26A69A; color:#fff}
+.book2 {
+    background: #ff5722;
+    color: #fff;
+}
+
+.book3 {
+    background: #2196f3;
+    color: #fff;
+}
+
+.navigation li a > i { font-size: 25px; }
+.navigation > li > a {     line-height: 30px;     font-size: 14px;   padding: 8px 20px;}
+/*button.btn_add_patient { background:transparent; border:0;}*/
+
+.search_block { position:relative; float:right; width:150px;}
+.search_block .search_feild { width:150px; border:solid 1px #ccc; padding:5px 10px;}
+.search_block .search_btn { position:absolute; right:1px; top:1px; width:34px; height:30px; background:#26a69a  url(../images/if_search.png) no-repeat 50% 50%; color:#ccc; border:none; border-left:solid 1px #ccc; text-indent:100px;}
+
+
+#myModal .form-group label { text-align:right !important;}
+
+#scheduler .k-middle-row td { padding-top:10px;  padding-bottom:10px;}
+
+.k-window-titlebar .k-window-title {}
+
+
+.k-scheduler-dayview .k-link.k-nav-day { display:none;}
+
+/* pop up*/
+.k-window-titlebar .k-window-title { display:none; }
+/*.k-window-titlebar:after { position:absolute; content:"Appointments"; width:150px; height:30px; left: 15px; top: 0; line-height:30px;    white-space: nowrap;  }*/
+.k-window-titlebar:after { position:absolute; content:""; width:150px; height:30px; left: 15px; top: 0; line-height:30px;    white-space: nowrap;  }
+
+.bookedAppointement .k-window-titlebar:after { content:"Booked Appointement";  }
+
+.bookedAppointement .k-edit-buttons.k-state-default { display:none;}
+
+
+.k-popup-edit-form .k-edit-form-container .editor-label, 
+.k-popup-edit-form .k-edit-label {  padding: 0;     line-height: 27px;}
+
+.k-popup-edit-form input[name="isAllDay"], 
+.k-popup-edit-form .k-edit-label label[for=isAllDay] { display:none;}
+
+.k-popup-edit-form .k-edit-field a.k-button, 
+.k-popup-edit-form .k-edit-label label[for=timezone] { display:none;}
+
+.k-popup-edit-form [data-container-for="recurrenceRule"], 
+.k-popup-edit-form .k-edit-label label[for=recurrenceRule] { display:none;}
+
+.k-popup-edit-form .k-edit-label label[for=title] { text-indent: 100px; position:relative; }
+.k-popup-edit-form .k-edit-label label[for=title]:after { position:absolute; content:"Patient Name"; width:150px; height:25px; right: 27px; top: 0;    white-space: nowrap;  }
+
+/* end pop up*/
+
+#people  .navbar-nav { margin-left:0}
+#people .navbar { float: left; z-index:99;}
+#people .navbar-toggle .icon-bar { background: #000; }
+#people .navbar .navbar-nav li { background:#fff; color:#000 }
+#people .navbar .navbar-nav li a { color:#000 }
+
+#people .navbar .navbar-nav li a {    background: #fff;   border-bottom: solid 5px #ff6700;    padding: 10px 25px;    padding-left: 25px;    line-height: normal;    margin-left: 0; 
+    font-weight: 500;    font-size: 15px;}
+#people .navbar .navbar-nav li.link1 a { border-color: #ff6700;}
+#people .navbar .navbar-nav li.link2 a { border-color:#5cae30}
+#people .navbar .navbar-nav li.link3 a { border-color:#286eb2}
+#people .navbar .navbar-nav li.link4 a { border-color:#db42e8}
+#people .navbar .navbar-nav li.link3.active a { background:#51a0ed; color:#fff;}
+
+
+
+
+@media (max-width: 768px) { 
+	#people .navbar-toggle { float:left;}
+	#people .navbar-collapse {  border:solid 1px #ccc}
+	#people .navbar .navbar-nav li a { padding: 10px;     font-size: 14px;}
+	#people .navbar .navbar-nav li a { border-width:2px;}
+}

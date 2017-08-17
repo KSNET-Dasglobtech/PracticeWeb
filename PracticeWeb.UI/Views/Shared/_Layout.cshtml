@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PW-Admin @ViewBag.Title</title>
+
+    <!-- Global stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/Content/css/icons/icomoon/styles.css")" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/Content/css/bootstrap.css")" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/Content/css/core.css")" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/Content/css/components.css")" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/Content/css/colors.css")" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/Content/css/custom.css")" rel="stylesheet" type="text/css">
+    <!-- /global stylesheets -->
+    <!-- Core JS files -->
+
+    <script type="text/javascript" src="@Url.Content("~/Content/js/plugins/loaders/pace.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/js/core/libraries/jquery.min.js")"></script>
+    @*<script type="text/javascript" src="@Url.Content("~/Content/js/core/libraries/jquery.validate.js")"></script>*@
+    @*<script type="text/javascript" src="@Url.Content("~/Content/js/core/libraries/jquery.validate.unobtrusive.js")"></script>*@
+    <script type="text/javascript" src="@Url.Content("~/Content/js/core/libraries/jquery.validate.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/js/core/libraries/moment.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/js/core/libraries/bootstrap.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/js/plugins/loaders/blockui.min.js")"></script>
+
+
+    <!-- /core JS files -->
+    <!-- Theme JS files -->
+    <script type="text/javascript" src="@Url.Content("~/Content/js/plugins/visualization/d3/d3.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/js/plugins/visualization/d3/d3_tooltip.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/js/plugins/forms/styling/switchery.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/js/plugins/forms/styling/uniform.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/js/plugins/forms/selects/bootstrap_multiselect.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/js/plugins/ui/moment/moment.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/js/plugins/pickers/daterangepicker.js")"></script>
+
+    <script type="text/javascript" src="@Url.Content("~/Content/js/plugins/forms/selects/bootstrap_select.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/js/core/app.js")"></script>
+    <script src="@Url.Content("~/Content/js/pages/form_bootstrap_select.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/js/pages/dashboard.js")"></script>
+
+    <!-- Common Kendo UI CSS -->
+    <link href="@Url.Content("~/Content/kendo/kendo.common.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/kendo/kendo.default.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/kendo/kendo.default.mobile.min.css")" rel="stylesheet" />
+
+    <!-- Kendo UI combined JavaScript -->
+    <script src="@Url.Content("~/Content/kendo/jquery.min.js")"></script>
+    <script src="@Url.Content("~/Content/kendo/kendo.all.min.js")"></script>
+    <script src="@Url.Content("~/Content/kendo/kendo.timezones.min.js")"></script>
+    <!-- /theme JS files -->
+
+    <script src="@Url.Content("~/Content/js/core/libraries/bootstrap.min.js")"></script>
+
+</head>
+<body>
+    <!-- Main navbar -->
+    @Html.Partial("~/Views/Shared/_Header.cshtml")
+    <!-- /main navbar -->
+    <!-- Page container -->
+    <div class="page-container">
+
+        <!-- Page content -->
+        <div class="page-content">
+            <!-- Main sidebar -->
+            @Html.Partial("~/Views/Shared/_Sidebar.cshtml")
+            <!-- /main sidebar -->
+
+            <!-- Main content -->
+            @RenderBody()
+            <!-- /main content -->
+            
+            
+
+        </div>
+        <!-- /page content -->
+
+    </div>
+    <!-- /page container -->
+</body>
+</html>

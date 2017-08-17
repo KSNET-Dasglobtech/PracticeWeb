@@ -1,0 +1,517 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Appointment">
+          <Key>
+            <PropertyRef Name="AptNum" />
+          </Key>
+          <Property Name="AptNum" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PatNum" Type="bigint" Nullable="false" />
+          <Property Name="AptStatus" Type="tinyint" Nullable="false" />
+          <Property Name="Pattern" Type="nvarchar" MaxLength="382" />
+          <Property Name="Confirmed" Type="bigint" Nullable="false" />
+          <Property Name="TimeLocked" Type="smallint" Nullable="false" />
+          <Property Name="Op" Type="bigint" Nullable="false" />
+          <Property Name="Note" Type="ntext" />
+          <Property Name="ProvNum" Type="bigint" Nullable="false" />
+          <Property Name="ProvHyg" Type="bigint" Nullable="false" />
+          <Property Name="AptDateTime" Type="datetime" Nullable="false" />
+          <Property Name="NextAptNum" Type="bigint" Nullable="false" />
+          <Property Name="UnschedStatus" Type="bigint" Nullable="false" />
+          <Property Name="IsNewPatient" Type="tinyint" Nullable="false" />
+          <Property Name="ProcDescript" Type="nvarchar" MaxLength="382" />
+          <Property Name="Assistant" Type="bigint" Nullable="false" />
+          <Property Name="ClinicNum" Type="bigint" Nullable="false" />
+          <Property Name="IsHygiene" Type="tinyint" Nullable="false" />
+          <Property Name="DateTStamp" Type="datetime" Nullable="false" />
+          <Property Name="DateTimeArrived" Type="datetime" Nullable="false" />
+          <Property Name="DateTimeSeated" Type="datetime" Nullable="false" />
+          <Property Name="DateTimeDismissed" Type="datetime" Nullable="false" />
+          <Property Name="InsPlan1" Type="bigint" Nullable="false" />
+          <Property Name="InsPlan2" Type="bigint" Nullable="false" />
+          <Property Name="DateTimeAskedToArrive" Type="datetime" Nullable="false" />
+          <Property Name="ProcsColored" Type="ntext" Nullable="false" />
+          <Property Name="ColorOverride" Type="int" Nullable="false" />
+          <Property Name="AppointmentTypeNum" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="PatNum" />
+          </Key>
+          <Property Name="PatNum" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LName" Type="nvarchar" MaxLength="150" />
+          <Property Name="FName" Type="nvarchar" MaxLength="150" />
+          <Property Name="MiddleI" Type="nvarchar" MaxLength="150" />
+          <Property Name="Preferred" Type="nvarchar" MaxLength="150" />
+          <Property Name="PatStatus" Type="tinyint" Nullable="false" />
+          <Property Name="Gender" Type="tinyint" Nullable="false" />
+          <Property Name="Position" Type="tinyint" Nullable="false" />
+          <Property Name="Birthdate" Type="datetime" Nullable="false" />
+          <Property Name="SSN" Type="nvarchar" MaxLength="150" />
+          <Property Name="Address" Type="nvarchar" MaxLength="150" />
+          <Property Name="Address2" Type="nvarchar" MaxLength="150" />
+          <Property Name="City" Type="nvarchar" MaxLength="150" />
+          <Property Name="State" Type="nvarchar" MaxLength="150" />
+          <Property Name="Zip" Type="nvarchar" MaxLength="150" />
+          <Property Name="HmPhone" Type="nvarchar" MaxLength="45" />
+          <Property Name="WkPhone" Type="nvarchar" MaxLength="45" />
+          <Property Name="WirelessPhone" Type="nvarchar" MaxLength="45" />
+          <Property Name="Guarantor" Type="bigint" Nullable="false" />
+          <Property Name="CreditType" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar" MaxLength="150" />
+          <Property Name="Salutation" Type="nvarchar" MaxLength="150" />
+          <Property Name="EstBalance" Type="float" Nullable="false" />
+          <Property Name="PriProv" Type="bigint" Nullable="false" />
+          <Property Name="SecProv" Type="bigint" Nullable="false" />
+          <Property Name="FeeSched" Type="bigint" Nullable="false" />
+          <Property Name="BillingType" Type="bigint" Nullable="false" />
+          <Property Name="ImageFolder" Type="nvarchar" MaxLength="150" />
+          <Property Name="AddrNote" Type="ntext" />
+          <Property Name="FamFinUrgNote" Type="ntext" />
+          <Property Name="MedUrgNote" Type="nvarchar" MaxLength="382" />
+          <Property Name="ApptModNote" Type="nvarchar" MaxLength="382" />
+          <Property Name="StudentStatus" Type="nvarchar" MaxLength="1" />
+          <Property Name="SchoolName" Type="nvarchar" MaxLength="382" Nullable="false" />
+          <Property Name="ChartNumber" Type="nvarchar" MaxLength="30" />
+          <Property Name="MedicaidID" Type="nvarchar" MaxLength="30" />
+          <Property Name="Bal_0_30" Type="float" Nullable="false" />
+          <Property Name="Bal_31_60" Type="float" Nullable="false" />
+          <Property Name="Bal_61_90" Type="float" Nullable="false" />
+          <Property Name="BalOver90" Type="float" Nullable="false" />
+          <Property Name="InsEst" Type="float" Nullable="false" />
+          <Property Name="BalTotal" Type="float" Nullable="false" />
+          <Property Name="EmployerNum" Type="bigint" Nullable="false" />
+          <Property Name="EmploymentNote" Type="nvarchar" MaxLength="382" />
+          <Property Name="County" Type="nvarchar" MaxLength="382" />
+          <Property Name="GradeLevel" Type="smallint" Nullable="false" />
+          <Property Name="Urgency" Type="smallint" Nullable="false" />
+          <Property Name="DateFirstVisit" Type="datetime" Nullable="false" />
+          <Property Name="ClinicNum" Type="bigint" Nullable="false" />
+          <Property Name="HasIns" Type="nvarchar" MaxLength="382" />
+          <Property Name="TrophyFolder" Type="nvarchar" MaxLength="382" />
+          <Property Name="PlannedIsDone" Type="tinyint" Nullable="false" />
+          <Property Name="Premed" Type="tinyint" Nullable="false" />
+          <Property Name="Ward" Type="nvarchar" MaxLength="382" />
+          <Property Name="PreferConfirmMethod" Type="tinyint" Nullable="false" />
+          <Property Name="PreferContactMethod" Type="tinyint" Nullable="false" />
+          <Property Name="PreferRecallMethod" Type="tinyint" Nullable="false" />
+          <Property Name="SchedBeforeTime" Type="datetime" />
+          <Property Name="SchedAfterTime" Type="datetime" />
+          <Property Name="SchedDayOfWeek" Type="tinyint" Nullable="false" />
+          <Property Name="Language" Type="nvarchar" MaxLength="150" />
+          <Property Name="AdmitDate" Type="datetime" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="22" />
+          <Property Name="PayPlanDue" Type="float" Nullable="false" />
+          <Property Name="SiteNum" Type="bigint" Nullable="false" />
+          <Property Name="DateTStamp" Type="datetime" Nullable="false" />
+          <Property Name="ResponsParty" Type="bigint" Nullable="false" />
+          <Property Name="CanadianEligibilityCode" Type="smallint" Nullable="false" />
+          <Property Name="AskToArriveEarly" Type="int" Nullable="false" />
+          <Property Name="OnlinePassword" Type="nvarchar" MaxLength="382" Nullable="false" />
+          <Property Name="PreferContactConfidential" Type="smallint" Nullable="false" />
+          <Property Name="SuperFamily" Type="bigint" Nullable="false" />
+          <Property Name="TxtMsgOk" Type="smallint" Nullable="false" />
+          <Property Name="SmokingSnoMed" Type="nvarchar" MaxLength="48" Nullable="false" />
+          <Property Name="Country" Type="nvarchar" MaxLength="382" Nullable="false" />
+          <Property Name="DateTimeDeceased" Type="datetime" Nullable="false" />
+          <Property Name="BillingCycleDay" Type="int" Nullable="false" />
+          <Property Name="SecUserNumEntry" Type="bigint" Nullable="false" />
+          <Property Name="SecDateEntry" Type="datetime" Nullable="false" />
+          <Property Name="HasSuperBilling" Type="smallint" Nullable="false" />
+        </EntityType>
+        <Function Name="DeletePatient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="patNum" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="GetAllAppointments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAllPatients" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetPatientById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="patNum" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="GetPatients" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="DBModelStoreContainer">
+          <EntitySet Name="Appointment" EntityType="Self.Appointment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Appointment">
+          <Key>
+            <PropertyRef Name="AptNum" />
+          </Key>
+          <Property Name="AptNum" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PatNum" Type="Int64" Nullable="false" />
+          <Property Name="AptStatus" Type="Byte" Nullable="false" />
+          <Property Name="Pattern" Type="String" MaxLength="382" FixedLength="false" Unicode="true" />
+          <Property Name="Confirmed" Type="Int64" Nullable="false" />
+          <Property Name="TimeLocked" Type="Int16" Nullable="false" />
+          <Property Name="Op" Type="Int64" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProvNum" Type="Int64" Nullable="false" />
+          <Property Name="ProvHyg" Type="Int64" Nullable="false" />
+          <Property Name="AptDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="NextAptNum" Type="Int64" Nullable="false" />
+          <Property Name="UnschedStatus" Type="Int64" Nullable="false" />
+          <Property Name="IsNewPatient" Type="Byte" Nullable="false" />
+          <Property Name="ProcDescript" Type="String" MaxLength="382" FixedLength="false" Unicode="true" />
+          <Property Name="Assistant" Type="Int64" Nullable="false" />
+          <Property Name="ClinicNum" Type="Int64" Nullable="false" />
+          <Property Name="IsHygiene" Type="Byte" Nullable="false" />
+          <Property Name="DateTStamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateTimeArrived" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateTimeSeated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateTimeDismissed" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="InsPlan1" Type="Int64" Nullable="false" />
+          <Property Name="InsPlan2" Type="Int64" Nullable="false" />
+          <Property Name="DateTimeAskedToArrive" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ProcsColored" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ColorOverride" Type="Int32" Nullable="false" />
+          <Property Name="AppointmentTypeNum" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="PatNum" />
+          </Key>
+          <Property Name="PatNum" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="FName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleI" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Preferred" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="PatStatus" Type="Byte" Nullable="false" />
+          <Property Name="Gender" Type="Byte" Nullable="false" />
+          <Property Name="Position" Type="Byte" Nullable="false" />
+          <Property Name="Birthdate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SSN" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Address2" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Zip" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="HmPhone" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="WkPhone" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="WirelessPhone" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="Guarantor" Type="Int64" Nullable="false" />
+          <Property Name="CreditType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Salutation" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="EstBalance" Type="Double" Nullable="false" />
+          <Property Name="PriProv" Type="Int64" Nullable="false" />
+          <Property Name="SecProv" Type="Int64" Nullable="false" />
+          <Property Name="FeeSched" Type="Int64" Nullable="false" />
+          <Property Name="BillingType" Type="Int64" Nullable="false" />
+          <Property Name="ImageFolder" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="AddrNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FamFinUrgNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MedUrgNote" Type="String" MaxLength="382" FixedLength="false" Unicode="true" />
+          <Property Name="ApptModNote" Type="String" MaxLength="382" FixedLength="false" Unicode="true" />
+          <Property Name="StudentStatus" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="SchoolName" Type="String" MaxLength="382" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ChartNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="MedicaidID" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Bal_0_30" Type="Double" Nullable="false" />
+          <Property Name="Bal_31_60" Type="Double" Nullable="false" />
+          <Property Name="Bal_61_90" Type="Double" Nullable="false" />
+          <Property Name="BalOver90" Type="Double" Nullable="false" />
+          <Property Name="InsEst" Type="Double" Nullable="false" />
+          <Property Name="BalTotal" Type="Double" Nullable="false" />
+          <Property Name="EmployerNum" Type="Int64" Nullable="false" />
+          <Property Name="EmploymentNote" Type="String" MaxLength="382" FixedLength="false" Unicode="true" />
+          <Property Name="County" Type="String" MaxLength="382" FixedLength="false" Unicode="true" />
+          <Property Name="GradeLevel" Type="Int16" Nullable="false" />
+          <Property Name="Urgency" Type="Int16" Nullable="false" />
+          <Property Name="DateFirstVisit" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ClinicNum" Type="Int64" Nullable="false" />
+          <Property Name="HasIns" Type="String" MaxLength="382" FixedLength="false" Unicode="true" />
+          <Property Name="TrophyFolder" Type="String" MaxLength="382" FixedLength="false" Unicode="true" />
+          <Property Name="PlannedIsDone" Type="Byte" Nullable="false" />
+          <Property Name="Premed" Type="Byte" Nullable="false" />
+          <Property Name="Ward" Type="String" MaxLength="382" FixedLength="false" Unicode="true" />
+          <Property Name="PreferConfirmMethod" Type="Byte" Nullable="false" />
+          <Property Name="PreferContactMethod" Type="Byte" Nullable="false" />
+          <Property Name="PreferRecallMethod" Type="Byte" Nullable="false" />
+          <Property Name="SchedBeforeTime" Type="DateTime" Precision="3" />
+          <Property Name="SchedAfterTime" Type="DateTime" Precision="3" />
+          <Property Name="SchedDayOfWeek" Type="Byte" Nullable="false" />
+          <Property Name="Language" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="AdmitDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Title" Type="String" MaxLength="22" FixedLength="false" Unicode="true" />
+          <Property Name="PayPlanDue" Type="Double" Nullable="false" />
+          <Property Name="SiteNum" Type="Int64" Nullable="false" />
+          <Property Name="DateTStamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ResponsParty" Type="Int64" Nullable="false" />
+          <Property Name="CanadianEligibilityCode" Type="Int16" Nullable="false" />
+          <Property Name="AskToArriveEarly" Type="Int32" Nullable="false" />
+          <Property Name="OnlinePassword" Type="String" MaxLength="382" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PreferContactConfidential" Type="Int16" Nullable="false" />
+          <Property Name="SuperFamily" Type="Int64" Nullable="false" />
+          <Property Name="TxtMsgOk" Type="Int16" Nullable="false" />
+          <Property Name="SmokingSnoMed" Type="String" MaxLength="48" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Country" Type="String" MaxLength="382" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateTimeDeceased" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="BillingCycleDay" Type="Int32" Nullable="false" />
+          <Property Name="SecUserNumEntry" Type="Int64" Nullable="false" />
+          <Property Name="SecDateEntry" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="HasSuperBilling" Type="Int16" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="DBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Appointments" EntityType="Self.Appointment" />
+          <EntitySet Name="Patients" EntityType="Self.Patient" />
+          <FunctionImport Name="GetAllAppointments" ReturnType="Collection(DBModel.GetAllAppointments_Result)" />
+          <FunctionImport Name="GetAllPatients" />
+          <FunctionImport Name="GetPatients" ReturnType="Collection(DBModel.PatientDetail)" />
+          <FunctionImport Name="DeletePatient">
+          <Parameter Name="patNum" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="GetPatientById" ReturnType="Collection(DBModel.GetPatientById_Result)">
+            <Parameter Name="patNum" Mode="In" Type="Int64" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="GetAllAppointments_Result">
+          <Property Type="Int64" Name="AppointmentID" Nullable="false" />
+          <Property Type="Int64" Name="PatNum" Nullable="true" />
+          <Property Type="String" Name="PatName" Nullable="true" MaxLength="301" />
+          <Property Type="DateTime" Name="PatBirthdate" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="OperatoryID" Nullable="true" />
+          <Property Type="String" Name="OperatoryName" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="StartTime" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="EndTime" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="IsAllDay" Nullable="true" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="GetPatients_Result">
+          <Property Type="Int64" Name="PatNum" Nullable="false" />
+          <Property Type="String" Name="FullName" Nullable="true" MaxLength="301" />
+          <Property Type="DateTime" Name="Birthdate" Nullable="false" Precision="23" />
+          <Property Type="Byte" Name="Gender" Nullable="false" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="HmPhone" Nullable="true" MaxLength="45" />
+          <Property Type="String" Name="WkPhone" Nullable="true" MaxLength="45" />
+        </ComplexType>
+        <ComplexType Name="PatientDetail">
+          <Property Type="Int64" Name="PatNum" Nullable="false" />
+          <Property Type="String" Name="FullName" Nullable="true" MaxLength="301" />
+          <Property Type="DateTime" Name="Birthdate" Nullable="false" Precision="23" />
+          <Property Type="Byte" Name="Gender" Nullable="false" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="HmPhone" Nullable="true" MaxLength="45" />
+          <Property Type="String" Name="WkPhone" Nullable="true" MaxLength="45" />
+        </ComplexType>
+        <ComplexType Name="GetPatientById_Result">
+          <Property Type="Int64" Name="PatNum" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="true" MaxLength="22" />
+          <Property Type="String" Name="FName" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="LName" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="MiddleI" Nullable="true" MaxLength="150" />
+          <Property Type="Byte" Name="Gender" Nullable="false" />
+          <Property Type="DateTime" Name="BirthDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="City" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="State" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="Zip" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="HmPhone" Nullable="true" MaxLength="45" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBModelStoreContainer" CdmEntityContainer="DBEntities">
+          <EntitySetMapping Name="Appointments">
+            <EntityTypeMapping TypeName="DBModel.Appointment">
+              <MappingFragment StoreEntitySet="Appointment">
+                <ScalarProperty Name="AptNum" ColumnName="AptNum" />
+                <ScalarProperty Name="PatNum" ColumnName="PatNum" />
+                <ScalarProperty Name="AptStatus" ColumnName="AptStatus" />
+                <ScalarProperty Name="Pattern" ColumnName="Pattern" />
+                <ScalarProperty Name="Confirmed" ColumnName="Confirmed" />
+                <ScalarProperty Name="TimeLocked" ColumnName="TimeLocked" />
+                <ScalarProperty Name="Op" ColumnName="Op" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="ProvNum" ColumnName="ProvNum" />
+                <ScalarProperty Name="ProvHyg" ColumnName="ProvHyg" />
+                <ScalarProperty Name="AptDateTime" ColumnName="AptDateTime" />
+                <ScalarProperty Name="NextAptNum" ColumnName="NextAptNum" />
+                <ScalarProperty Name="UnschedStatus" ColumnName="UnschedStatus" />
+                <ScalarProperty Name="IsNewPatient" ColumnName="IsNewPatient" />
+                <ScalarProperty Name="ProcDescript" ColumnName="ProcDescript" />
+                <ScalarProperty Name="Assistant" ColumnName="Assistant" />
+                <ScalarProperty Name="ClinicNum" ColumnName="ClinicNum" />
+                <ScalarProperty Name="IsHygiene" ColumnName="IsHygiene" />
+                <ScalarProperty Name="DateTStamp" ColumnName="DateTStamp" />
+                <ScalarProperty Name="DateTimeArrived" ColumnName="DateTimeArrived" />
+                <ScalarProperty Name="DateTimeSeated" ColumnName="DateTimeSeated" />
+                <ScalarProperty Name="DateTimeDismissed" ColumnName="DateTimeDismissed" />
+                <ScalarProperty Name="InsPlan1" ColumnName="InsPlan1" />
+                <ScalarProperty Name="InsPlan2" ColumnName="InsPlan2" />
+                <ScalarProperty Name="DateTimeAskedToArrive" ColumnName="DateTimeAskedToArrive" />
+                <ScalarProperty Name="ProcsColored" ColumnName="ProcsColored" />
+                <ScalarProperty Name="ColorOverride" ColumnName="ColorOverride" />
+                <ScalarProperty Name="AppointmentTypeNum" ColumnName="AppointmentTypeNum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Patients">
+            <EntityTypeMapping TypeName="DBModel.Patient">
+              <MappingFragment StoreEntitySet="Patient">
+                <ScalarProperty Name="PatNum" ColumnName="PatNum" />
+                <ScalarProperty Name="LName" ColumnName="LName" />
+                <ScalarProperty Name="FName" ColumnName="FName" />
+                <ScalarProperty Name="MiddleI" ColumnName="MiddleI" />
+                <ScalarProperty Name="Preferred" ColumnName="Preferred" />
+                <ScalarProperty Name="PatStatus" ColumnName="PatStatus" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Birthdate" ColumnName="Birthdate" />
+                <ScalarProperty Name="SSN" ColumnName="SSN" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="HmPhone" ColumnName="HmPhone" />
+                <ScalarProperty Name="WkPhone" ColumnName="WkPhone" />
+                <ScalarProperty Name="WirelessPhone" ColumnName="WirelessPhone" />
+                <ScalarProperty Name="Guarantor" ColumnName="Guarantor" />
+                <ScalarProperty Name="CreditType" ColumnName="CreditType" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Salutation" ColumnName="Salutation" />
+                <ScalarProperty Name="EstBalance" ColumnName="EstBalance" />
+                <ScalarProperty Name="PriProv" ColumnName="PriProv" />
+                <ScalarProperty Name="SecProv" ColumnName="SecProv" />
+                <ScalarProperty Name="FeeSched" ColumnName="FeeSched" />
+                <ScalarProperty Name="BillingType" ColumnName="BillingType" />
+                <ScalarProperty Name="ImageFolder" ColumnName="ImageFolder" />
+                <ScalarProperty Name="AddrNote" ColumnName="AddrNote" />
+                <ScalarProperty Name="FamFinUrgNote" ColumnName="FamFinUrgNote" />
+                <ScalarProperty Name="MedUrgNote" ColumnName="MedUrgNote" />
+                <ScalarProperty Name="ApptModNote" ColumnName="ApptModNote" />
+                <ScalarProperty Name="StudentStatus" ColumnName="StudentStatus" />
+                <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+                <ScalarProperty Name="ChartNumber" ColumnName="ChartNumber" />
+                <ScalarProperty Name="MedicaidID" ColumnName="MedicaidID" />
+                <ScalarProperty Name="Bal_0_30" ColumnName="Bal_0_30" />
+                <ScalarProperty Name="Bal_31_60" ColumnName="Bal_31_60" />
+                <ScalarProperty Name="Bal_61_90" ColumnName="Bal_61_90" />
+                <ScalarProperty Name="BalOver90" ColumnName="BalOver90" />
+                <ScalarProperty Name="InsEst" ColumnName="InsEst" />
+                <ScalarProperty Name="BalTotal" ColumnName="BalTotal" />
+                <ScalarProperty Name="EmployerNum" ColumnName="EmployerNum" />
+                <ScalarProperty Name="EmploymentNote" ColumnName="EmploymentNote" />
+                <ScalarProperty Name="County" ColumnName="County" />
+                <ScalarProperty Name="GradeLevel" ColumnName="GradeLevel" />
+                <ScalarProperty Name="Urgency" ColumnName="Urgency" />
+                <ScalarProperty Name="DateFirstVisit" ColumnName="DateFirstVisit" />
+                <ScalarProperty Name="ClinicNum" ColumnName="ClinicNum" />
+                <ScalarProperty Name="HasIns" ColumnName="HasIns" />
+                <ScalarProperty Name="TrophyFolder" ColumnName="TrophyFolder" />
+                <ScalarProperty Name="PlannedIsDone" ColumnName="PlannedIsDone" />
+                <ScalarProperty Name="Premed" ColumnName="Premed" />
+                <ScalarProperty Name="Ward" ColumnName="Ward" />
+                <ScalarProperty Name="PreferConfirmMethod" ColumnName="PreferConfirmMethod" />
+                <ScalarProperty Name="PreferContactMethod" ColumnName="PreferContactMethod" />
+                <ScalarProperty Name="PreferRecallMethod" ColumnName="PreferRecallMethod" />
+                <ScalarProperty Name="SchedBeforeTime" ColumnName="SchedBeforeTime" />
+                <ScalarProperty Name="SchedAfterTime" ColumnName="SchedAfterTime" />
+                <ScalarProperty Name="SchedDayOfWeek" ColumnName="SchedDayOfWeek" />
+                <ScalarProperty Name="Language" ColumnName="Language" />
+                <ScalarProperty Name="AdmitDate" ColumnName="AdmitDate" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="PayPlanDue" ColumnName="PayPlanDue" />
+                <ScalarProperty Name="SiteNum" ColumnName="SiteNum" />
+                <ScalarProperty Name="DateTStamp" ColumnName="DateTStamp" />
+                <ScalarProperty Name="ResponsParty" ColumnName="ResponsParty" />
+                <ScalarProperty Name="CanadianEligibilityCode" ColumnName="CanadianEligibilityCode" />
+                <ScalarProperty Name="AskToArriveEarly" ColumnName="AskToArriveEarly" />
+                <ScalarProperty Name="OnlinePassword" ColumnName="OnlinePassword" />
+                <ScalarProperty Name="PreferContactConfidential" ColumnName="PreferContactConfidential" />
+                <ScalarProperty Name="SuperFamily" ColumnName="SuperFamily" />
+                <ScalarProperty Name="TxtMsgOk" ColumnName="TxtMsgOk" />
+                <ScalarProperty Name="SmokingSnoMed" ColumnName="SmokingSnoMed" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="DateTimeDeceased" ColumnName="DateTimeDeceased" />
+                <ScalarProperty Name="BillingCycleDay" ColumnName="BillingCycleDay" />
+                <ScalarProperty Name="SecUserNumEntry" ColumnName="SecUserNumEntry" />
+                <ScalarProperty Name="SecDateEntry" ColumnName="SecDateEntry" />
+                <ScalarProperty Name="HasSuperBilling" ColumnName="HasSuperBilling" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetAllAppointments" FunctionName="DBModel.Store.GetAllAppointments">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBModel.GetAllAppointments_Result">
+                <ScalarProperty Name="AppointmentID" ColumnName="AppointmentID" />
+                <ScalarProperty Name="PatNum" ColumnName="PatNum" />
+                <ScalarProperty Name="PatName" ColumnName="PatName" />
+                <ScalarProperty Name="PatBirthdate" ColumnName="PatBirthdate" />
+                <ScalarProperty Name="OperatoryID" ColumnName="OperatoryID" />
+                <ScalarProperty Name="OperatoryName" ColumnName="OperatoryName" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="IsAllDay" ColumnName="IsAllDay" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllPatients" FunctionName="DBModel.Store.GetAllPatients">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetPatients" FunctionName="DBModel.Store.GetPatients">
+          <ResultMapping>
+              <ComplexTypeMapping TypeName="DBModel.PatientDetail">
+                <ScalarProperty Name="PatNum" ColumnName="PatNum" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Birthdate" ColumnName="Birthdate" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="HmPhone" ColumnName="HmPhone" />
+                <ScalarProperty Name="WkPhone" ColumnName="WkPhone" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="DeletePatient" FunctionName="DBModel.Store.DeletePatient" />
+          <FunctionImportMapping FunctionImportName="GetPatientById" FunctionName="DBModel.Store.GetPatientById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBModel.GetPatientById_Result">
+                <ScalarProperty Name="PatNum" ColumnName="PatNum" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="FName" ColumnName="FName" />
+                <ScalarProperty Name="LName" ColumnName="LName" />
+                <ScalarProperty Name="MiddleI" ColumnName="MiddleI" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="HmPhone" ColumnName="HmPhone" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

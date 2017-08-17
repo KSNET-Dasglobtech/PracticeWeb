@@ -1,0 +1,102 @@
+﻿<div class="sidebar sidebar-main">
+    <div class="sidebar-content">
+
+        <!-- User menu -->
+        <div class="sidebar-user">
+            <div class="category-content">
+                <div class="media">
+                    <a href="#" class="media-left"><img src="@Url.Content("~/Content/images/placeholder.jpg")" class="img-circle img-sm" alt=""></a>
+                    <div class="media-body">
+                        <span class="media-heading text-semibold">Jahan Baker</span>
+                        <div class="text-size-mini text-muted">
+                            <i class="icon-pin text-size-small"></i> &nbsp;Santa Ana, CA
+                        </div>
+                    </div>
+
+                    <div class="media-right media-middle">
+                        <ul class="icons-list">
+                            <li>
+                                <a href="#"><i class="icon-cog3"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /user menu -->
+        <!-- Main navigation -->
+        <div class="sidebar-category sidebar-category-visible">
+            <div class="category-content no-padding">
+                <ul class="navigation navigation-main navigation-accordion">
+
+                    <!-- Main -->
+                    <li class="navigation-header"><span>Main</span> <i class="icon-menu" title="Main pages"></i></li>
+                    <li class="@(ViewBag.PageName == "dashboard" ? "active" : "")"><a href="@Url.Action("Index", "Home")"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
+                    <li>
+                        <a href="#"><i class="icon-user"></i> <span>Patients</span></a>
+                        <ul>
+                            @*<li><a href="#">Add Patient</a></li>*@
+                            <li class="@(ViewBag.PageName == "patient-list" ? "active" : "")"><a href="@Url.Action("Index", "Patient")">View Patients</a></li>
+                            @*<li><a href="#">Edit Patient</a></li>
+                            <li><a href="#">Comments / Alerts</a></li>
+                            <li><a href="#">Documents</a></li>*@
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="icon-office"></i> <span>Clinics/Staff</span></a>
+                        <ul>
+                            <li><a href="#">Clinics</a></li>
+                            <li><a href="#">Staff</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#"><i class="icon-calendar3"></i> <span>Schedule</span></a>
+                        <ul>
+                            <li class="@(ViewBag.PageName == "schedule" ? "active" : "")"><a href="@Url.Action("Index", "Appointment")">Schedule</a></li>
+                            <li><a href="#">Checkout</a></li>
+                            <li><a href="#">Locator Details</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#"><i class="icon-stats-dots"></i> <span>Financial</span></a>
+                        <ul>
+                            <li><a href="#">Ledger</a></li>
+                            <li><a href="#">Charge</a></li>
+                            <li><a href="#">Payment</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#"><i class="icon-aid-kit"></i> <span>Treatment</span></a>
+                        <ul>
+                            <li><a href="#">Treatment Card</a></li>
+                            <li><a href="#">Images</a></li>
+                            <li><a href="#">Questionnaires</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#"><i class="icon-file-text2"></i> <span>Letters</span></a>
+                        <ul>
+                            <li><a href="#">Document Editor</a></li>
+                            <li><a href="#">Letter Queue</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#"><i class="icon-history"></i> <span>TimeClock</span></a></li>
+
+                    <li>
+                        <a href="#"><i class="icon-switch"></i> <span>Logout</span></a>
+                        <ul>
+                            <li><a href="#">Lock Screen </a></li>
+                            <li><a href="#">Logout</a></li>
+                        </ul>
+                    </li>
+                    <!-- /main -->
+                </ul>
+            </div>
+        </div>
+        <!-- /main navigation -->
+    </div>
+</div>
