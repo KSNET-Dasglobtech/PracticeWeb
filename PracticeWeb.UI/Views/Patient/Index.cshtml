@@ -3,7 +3,15 @@
     ViewBag.Title = "Patient List";
     ViewBag.PageName = "patient-list";
 }
+<style type="text/css">
+    /*.k-grid tbody .k-button, .k-ie8 .k-grid tbody button.k-button {
+    min-width: 32px;
+}
 
+    .k-button-edit{
+        background-image:url("/Content/images/if_search.png")
+    }*/
+</style>
 
 <!-- Page header -->
 <div class="page-header page-header-default">
@@ -101,7 +109,8 @@
                 template: "#= kendo.toString(kendo.parseDate(Birthdate, 'yyyy-MM-dd'), 'MM/dd/yyyy') #"
             }, {
                 field: "Gender",
-                title: "Gender"
+                title: "Gender",
+                template: "# if (Gender==1) {# Male #} else if (Gender==2) {# Female #}#"
             }, {
                 field: "Email",
                 title: "Email",
@@ -112,7 +121,10 @@
                 field: "WkPhone",
                 title: "Work Phone",
             },
-            { command: [{ text: "Edit", click: editPatient }, { text: "Delete", click: deletePatientDialog }], title: "Action", width: "152px" }]
+            { command: [{ name: "Edit", text: "Edit", imageClass: "k-icon k-i-pencil", click: editPatient }, { text: "Delete", click: deletePatientDialog }], title: "Action", width: "152px" }]
+            //{ command: [{ text: "Edit", name: "edit", click: editPatient, template: "<div class='k-button k-button-edit'><span class='k-icon k-edit-icon'></span></div>" }], title: " ", width: 150 },
+            //{ command: [{ name: "destroy",click :deletePatientDialog, template: "<div class='k-button'><span class='k-icon k-delete'></span></div>" }], title: " ", width: 50 }
+            //]
         });
 
         function editPatient(e) {
@@ -210,7 +222,7 @@
         });
 
         $('#model_AddPatient').click(function () {
-            reset();
+            //reset();
         });
 
         function reset()
