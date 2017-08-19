@@ -30,7 +30,7 @@ namespace PracticeWeb.UI.Models
         public string RoomListJson { get; set; }
         public List<Doctor> DoctorList { get; set; }
 
-
+public PatientModel PatientModel { get; set; }
         
 
         #endregion

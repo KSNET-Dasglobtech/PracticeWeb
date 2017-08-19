@@ -399,11 +399,12 @@
         <ComplexType Name="PatientDetail">
           <Property Type="Int64" Name="PatNum" Nullable="false" />
           <Property Type="String" Name="FullName" Nullable="true" MaxLength="301" />
-          <Property Type="DateTime" Name="Birthdate" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="Birthdate" Nullable="true" />
           <Property Type="Byte" Name="Gender" Nullable="false" />
           <Property Type="String" Name="Email" Nullable="true" MaxLength="150" />
           <Property Type="String" Name="HmPhone" Nullable="true" MaxLength="45" />
           <Property Type="String" Name="WkPhone" Nullable="true" MaxLength="45" />
+          <Property Type="String" Name="GenderValue" Nullable="false" MaxLength="6" />
         </ComplexType>
         <ComplexType Name="GetPatientById_Result">
           <Property Type="Int64" Name="PatNum" Nullable="false" />
@@ -664,6 +665,7 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="HmPhone" ColumnName="HmPhone" />
                 <ScalarProperty Name="WkPhone" ColumnName="WkPhone" />
+                <ScalarProperty Name="GenderValue" ColumnName="GenderValue" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

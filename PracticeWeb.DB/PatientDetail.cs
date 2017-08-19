@@ -15,10 +15,11 @@ namespace PracticeWeb.DB
     {
         public long PatNum { get; set; }
         public string FullName { get; set; }
-        public System.DateTime Birthdate { get; set; }
+        public Nullable<System.DateTime> Birthdate { get; set; }
         public byte Gender { get; set; }
         public string Email { get; set; }
         public string HmPhone { get; set; }
         public string WkPhone { get; set; }
+        public string GenderValue { get; set; }
     }
 }

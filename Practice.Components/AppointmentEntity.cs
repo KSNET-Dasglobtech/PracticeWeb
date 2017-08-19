@@ -131,7 +131,7 @@ namespace PracticeWeb.Components
         /// <param name="Lead"></param>
         public List<Doctor> GetAllDoctor()
         {
-            return db.Doctors.ToList();
+            return db.Doctors.OrderBy(m=>m.DoctorName).ToList();
 
         }
 
@@ -145,7 +145,7 @@ namespace PracticeWeb.Components
         /// <param name="Lead"></param>
         public List<Operatory> GetAllRooms()
         {
-            return db.Operatories.ToList();
+            return db.Operatories.OrderBy(m=>m.OperatoryName).ToList();
 
         }
 

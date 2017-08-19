@@ -1,5 +1,6 @@
 ﻿@model PracticeWeb.UI.Models.AppointmentModel
 
+
 @{
     ViewBag.Title = "Schedule";
     ViewBag.PageName = "schedule";
@@ -7,44 +8,7 @@
 
 <div class="content-wrapper">
     <!-- Page header -->
-    <div class="page-header page-header-default">
-        <div class="page-header-content">
-            <div class="page-title">
-                <h4>
-                    <i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Schedule</span>  <!-- Button trigger modal -->
-                    <button type="button" class="btn btn_add_patient pull-right" data-toggle="modal" data-target="#model_AddPatient">
-                        <b> Add Patient</b>
-                    </button>
-                </h4>
-            </div>
-        </div>
-
-        <div class="breadcrumb-line">
-            <ul class="breadcrumb">
-                <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
-                <li class="active">Schedule</li>
-            </ul>
-
-            <ul class="breadcrumb-elements">
-                <li><a href="#"><i class="icon-comment-discussion position-left"></i> Support</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="icon-gear position-left"></i>
-                        Settings
-                        <span class="caret"></span>
-                    </a>
-
-                    <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a href="#"><i class="icon-user-lock"></i> Account security</a></li>
-                        <li><a href="#"><i class="icon-statistics"></i> Analytics</a></li>
-                        <li><a href="#"><i class="icon-accessibility"></i> Accessibility</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#"><i class="icon-gear"></i> All settings</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
+    
     <!-- /page header -->
     <!-- Content area -->
     <div class="content">
@@ -420,3 +384,336 @@
 
 </script>
 
+
+
+<!-- Patient entry page in modal popup-->
+
+<div id="patientRequiredDataMessage"></div>
+
+<script>
+    $(document).ready(function () {
+        
+        var patientRequiredDataMessageDialog = $("#patientRequiredDataMessage");
+        patientRequiredDataMessageDialog.kendoDialog({
+            width: "400px",
+            title: "Incomplete Data",
+            closable: false,
+            visible: false,
+            modal: true,
+            content: "All required fields (marked with *) should not be blank",
+            actions: [
+                { text: 'Ok' }
+            ]
+        });
+
+        $("#model_AddPatient").on("hide.bs.modal", function () {
+            // put your default event here
+            reset();
+        });
+
+        $('#model_AddPatient').click(function () {
+            //reset();
+        });
+
+        $('#btnReset').click(function () {
+            reset();
+        });
+
+        function reset() {
+            
+            if ($("#PatientModel_PatNum").val() != "0" && $("#PatientModel_PatNum").val() != "") {
+                //fillpatientdata($("#PatientModel_PatNum").val());
+            }
+            else{
+                $("#PatientModel_PatNum").val(0);
+                $("#PatientModel_Title").val('1');
+                $("#PatientModel_FName").val('');
+                $("#PatientModel_LName").val('');
+                $("#PatientModel_MiddleI").val('');
+                $("#PatientModel_Gender").val('1');// $("#PatientModel_Gender").val(),
+                $("#PatientModel_BirthDate").val('');
+                $("#PatientModel_Email").val('');
+                $("#PatientModel_Address").val('');
+                $("#PatientModel_City").val('');
+                $("#PatientModel_State").val('');
+                $("#PatientModel_Zip").val('');
+                $("#PatientModel_HmPhone").val('');
+            }
+        }
+
+        $('#btnSave').click(function () {
+            //if ($("#PatientForm").valid()) {
+            //var s = $("#patientFormId").valid();
+            if ($("#PatientModel_FName").val() != "" && $("#PatientModel_LName").val() != "" && $("#PatientModel_BirthDate").val()) {
+                var postData = {
+                    patNum: $("#PatientModel_PatNum").val(),
+                    title: $("#PatientModel_Title option:selected").text(),//$("#PatientModel_Title").val(),
+                    firstName: $("#PatientModel_FName").val(),
+                    lastName: $("#PatientModel_LName").val(),
+                    middleName: $("#PatientModel_MiddleI").val(),
+                    gender: $("#PatientModel_Gender option:selected").val(),// $("#Gender").val(),
+                    birthDate: $("#PatientModel_BirthDate").val(),
+                    email: $("#PatientModel_Email").val(),
+                    address: $("#PatientModel_Address").val(),
+                    city: $("#PatientModel_City").val(),
+                    state: $("#PatientModel_State").val(),
+                    pinCode: $("#PatientModel_Zip").val(),
+                    phone: $("#PatientModel_HmPhone").val()
+                };
+                //addAntiForgeryToken(postData);
+                $.ajax({
+                    cache: false,
+                    type: "POST",
+                    url: "@(Url.Action("SavePetient", "Patient"))",
+                    data: postData,
+                    success: function (data) {
+                        if (data.result === 'Error') {
+                            //show error
+                            $('.alert-danger').show();
+                            $('.alert-danger').html('Error while updating record.');
+                        }
+                        else if (data.result === 'Success') {
+                            $("#PatientModel_PatNum").val(0);
+                            window.location.href = "@(Url.Action("Index", "Appointment"))";
+                            //$('#patientDataGrid').data('kendoGrid').dataSource.read();
+                            //$("#model_AddPatient .close").click()
+                            //$('#patientDataGrid').modal().hide();
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        //$('#save-workHistoryDetails').attr('disabled', false);
+                    }
+                });
+                //}
+                //}
+            }
+            else
+            {
+                patientRequiredDataMessageDialog.data("kendoDialog").open();
+                //alert("All required fields (marked with *) should not be blank!");
+                //$.alert({
+                //    title: 'Incomplete Data',
+                //    content: "Please enter first name and last name",
+                //});
+            }
+        });
+    });
+
+
+</script>
+
+<!-- Modal -->
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "patientFormId" }))
+{
+    @*@Html.AntiForgeryToken()
+        HtmlHelper.UnobtrusiveJavaScriptEnabled = false;*@
+
+
+    <div class="modal fade" id="model_AddPatient" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            &times;
+                        </span>
+                    </button> <h4 class="modal-title" id="myModalLabel">Add Patient</h4>
+                </div> <div class="modal-body">
+                    <form class="form-horizontal form-validate-jquery" action="#">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 patient_step1">
+                                <!-- Form validation -->
+                                <div class="panel panel-flat">
+                                    <div class="panel-heading"> <h5 class="panel-title">Patient</h5> </div> <div class="panel-body">
+                                        <fieldset class="content-group">
+                                            <!-- Basic text input -->
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.PatientModel.Title, new { @class = "control-label" })<span class="colon">:</span><span class="required-error"> *</span>
+
+                                                @Html.DropDownListFor(model => model.PatientModel.Title, new List<SelectListItem>
+     { new SelectListItem { Text = "Miss", Value = "1", Selected=true},
+       new SelectListItem { Text = "Mr", Value = "2"},
+       new SelectListItem { Text = "Mrs", Value = "3"},
+       new SelectListItem { Text = "Ms", Value = "4"}
+       }, new { @class = "form-control", @placeholder = "Select Title", @style = "Width:100%;" })
+                                                @Html.ValidationMessageFor(model => model.PatientModel.Title, "", new { @class = "text-danger" })
+
+
+                                            </div>
+                                            <!-- /basic text input -->
+                                            <!-- Input with icons -->
+                                            @Html.HiddenFor(model => model.PatientModel.PatNum)
+                                            <div class="form-group has-feedback">
+                                                @Html.LabelFor(model => model.PatientModel.FName)<span class="colon">:</span><span class="required-error"> *</span>
+                                                @Html.EditorFor(model => model.PatientModel.FName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter First Name", @style = "Width:100%;" } })
+                                                @Html.ValidationMessageFor(model => model.PatientModel.FName, "", new { @class = "text-danger" })
+                                            </div>
+                                            <!-- /input with icons -->
+                                            <!-- Input group -->
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.PatientModel.MiddleI)<span class="colon">:</span>
+                                                @Html.EditorFor(model => model.PatientModel.MiddleI, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Middle Name", @style = "Width:100%;" } })
+                                            </div>
+                                            <!-- /input group -->
+                                            <!-- Password field -->
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.PatientModel.LName)<span class="colon">:</span><span class="required-error"> *</span>
+                                                @Html.EditorFor(model => model.PatientModel.LName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Last Name", @style = "Width:100%;" } })
+                                                @Html.ValidationMessageFor(model => model.PatientModel.LName, "", new { @class = "text-danger" })
+                                            </div>
+                                            <!-- /password field -->
+                                            <!-- Repeat password -->
+                                            @*<div class="form-group"> <label class="control-label col-lg-3">Suffix</label> <div class="col-lg-6"> <input type="text" name="basic" class="form-control" placeholder="Suffix"> </div> </div>*@
+                                            <!-- /repeat password -->
+                                            <!-- Email field -->
+                                            @*<div class="form-group"> <label class="control-label col-lg-3">Greeting</label> <div class="col-lg-6"> <input type="text" name="basic" class="form-control" id="email" placeholder="Greeting"> </div> </div>*@
+                                            <!-- /email field -->
+                                            <!-- Basic text input -->
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.PatientModel.Gender)<span class="colon">:</span><span class="required-error"> *</span>
+
+                                                @Html.DropDownListFor(model => model.PatientModel.Gender, new List<SelectListItem>
+     { new SelectListItem { Text = "Male", Value = "1", Selected=true},
+       new SelectListItem { Text = "Female", Value = "2"}
+       }, new { @class = "form-control", @placeholder = "Select Gender", @style = "Width:100%;" })
+                                                @Html.ValidationMessageFor(model => model.PatientModel.Gender, "", new { @class = "text-danger" })
+                                            </div>
+                                            <!-- /basic text input -->
+                                            <!-- Minimum characters -->
+                                            @*<div class="form-group"> <label class="control-label col-lg-3">Social</label> <div class="col-lg-6"> <input type="text" name="basic" class="form-control" placeholder="Social"> </div> </div>*@
+                                            <!-- /minimum characters -->
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.PatientModel.BirthDate)<span class="colon">:</span><span class="required-error"> *</span>
+                                                @Html.EditorFor(model => model.PatientModel.BirthDate, new { htmlAttributes = new { @class = "form-control", @style = "Width:100%;" } })
+                                                @Html.ValidationMessageFor(model => model.PatientModel.BirthDate, "", new { @class = "text-danger" })
+
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.PatientModel.Email)<span class="colon">:</span>
+                                                @Html.EditorFor(model => model.PatientModel.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Address", @style = "Width:100%;" } })
+                                                @Html.ValidationMessageFor(model => model.PatientModel.Email, "", new { @class = "text-danger" })
+
+                                            </div>
+                                            <!-- Minimum number -->
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.PatientModel.Address)<span class="colon">:</span>
+                                                @Html.EditorFor(model => model.PatientModel.Address, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Address", @style = "Width:100%;" } })
+                                                @Html.ValidationMessageFor(model => model.PatientModel.Address, "", new { @class = "text-danger" })
+
+                                            </div>
+                                            <!-- /minimum number -->
+                                            <!-- Maximum characters -->
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.PatientModel.City)<span class="colon">:</span>
+                                                @Html.EditorFor(model => model.PatientModel.City, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter City", @style = "Width:100%;" } })
+                                                @Html.ValidationMessageFor(model => model.PatientModel.City, "", new { @class = "text-danger" })
+
+                                            </div>
+                                            <!-- /maximum characters -->
+                                            <!-- Maximum characters -->
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.PatientModel.State)<span class="colon">:</span>
+                                                @Html.EditorFor(model => model.PatientModel.State, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter State", @style = "Width:100%;" } })
+                                                @Html.ValidationMessageFor(model => model.PatientModel.State, "", new { @class = "text-danger" })
+                                            </div>
+                                            <!-- /maximum characters -->
+                                            <!-- Maximum characters -->
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.PatientModel.Zip)<span class="colon">:</span>
+                                                @Html.EditorFor(model => model.PatientModel.Zip, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Pin Code", @style = "Width:100%;" } })
+                                                @Html.ValidationMessageFor(model => model.PatientModel.Zip, "", new { @class = "text-danger" })
+                                            </div>
+                                            <!-- /maximum characters -->
+                                            <!-- Maximum number -->
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.PatientModel.HmPhone)<span class="colon">:</span>
+                                                @Html.EditorFor(model => model.PatientModel.HmPhone, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Phone", @style = "Width:100%;" } })
+                                                @Html.ValidationMessageFor(model => model.PatientModel.HmPhone, "", new { @class = "text-danger" })
+                                            </div>
+                                            <!-- /maximum number -->
+                                            <!-- Basic textarea -->
+                                            @*<div class="form-group"> <label class="control-label col-lg-3">Orthodontist <span class="text-danger">*</span></label> <div class="col-lg-9"> <select class="bootstrap-select" data-width="100%"> <option value="AK">Select Orthodontist</option> <option value="HI">Orthodontist 2</option> <option value="CA">Orthodontist 3</option> <option value="NV">Orthodontist 4</option> <option value="OR">Orthodontist 5</option> </select> </div> </div>*@
+                                            <!-- /basic textarea -->
+                                            <!-- Basic textarea -->
+                                            @*<div class="form-group"> <label class="control-label col-lg-3">Location <span class="text-danger">*</span></label> <div class="col-lg-9"> <select class="bootstrap-select" data-width="100%"> <option value="AK">Select Location</option> <option value="HI">Location 2</option> <option value="CA">Location 3</option> <option value="NV">Location 4</option> <option value="OR">Location 5</option> </select> </div> </div>*@
+                                            <!-- /basic textarea -->
+                                        </fieldset> <div class="text-right"> <button type="reset" class="btn btn-default" id="btnReset">Reset <i class="icon-reload-alt position-right"></i></button> <button type="submit" id="btnSave" class="btn btn-primary">Submit <i class="icon-arrow-right14 position-right"></i></button> </div>
+                                    </div>
+                                </div>
+                                <!-- /form validation -->
+                                <script>
+                                    $(document).ready(function () {
+                                        $(".btn_step2").click(function () {
+                                            $(".patient_step1").hide();
+                                        });
+
+                                    });
+                                </script>
+                            </div>
+                            <!-- end col-md-12 -->
+                            <div class="col-md-12 col-sm-12 collapse" id="step2">
+                                <!-- Form validation -->
+                                <div class="panel panel-flat">
+                                    <div class="panel-heading"> <h5 class="panel-title">Financially Responsible</h5> </div> <div class="panel-body">
+                                        <fieldset class="content-group">
+                                            <!-- Basic text input -->
+                                            <div class="form-group"> <label class="control-label col-lg-3">Relationship<span class="text-danger">*</span></label> <div class="col-lg-6"> <select class="bootstrap-select" data-width="100%"> <option value="AK">Select Relationship</option> <option value="HI">Relationship</option> <option value="CA">Relationship</option> <option value="NV">Relationship</option> </select> </div> </div>
+                                            <!-- /basic text input -->
+                                            <!-- Basic text input -->
+                                            <div class="form-group"> <label class="control-label col-lg-3">Title<span class="text-danger">*</span></label> <div class="col-lg-6"> <select class="bootstrap-select" data-width="100%"> <option value="AK">Title 1</option> <option value="HI">Title 2</option> <option value="CA">Title 3</option> <option value="NV">Title 4</option> <option value="OR">Title 5</option> </select> </div> </div>
+                                            <!-- /basic text input -->
+                                            <!-- Input with icons -->
+                                            <div class="form-group has-feedback"> <label class="control-label col-lg-3">First Name <span class="text-danger">*</span></label> <div class="col-lg-9"> <input type="text" name="basic" class="form-control" required="required" placeholder="First Name"> </div> </div>
+                                            <!-- /input with icons -->
+                                            <!-- Input group -->
+                                            <div class="form-group"> <label class="control-label col-lg-3">Middle Name</label> <div class="col-lg-9"> <input type="text" name="basic" class="form-control" placeholder="Middle Name"> </div> </div>
+                                            <!-- /input group -->
+                                            <!-- Password field -->
+                                            <div class="form-group"> <label class="control-label col-lg-3">Last Name <span class="text-danger">*</span></label> <div class="col-lg-9"> <input type="text" name="basic" class="form-control" required="required" placeholder="Last Name"> </div> </div>
+                                            <!-- /password field -->
+                                            <!-- Repeat password -->
+                                            <div class="form-group"> <label class="control-label col-lg-3">Suffix</label> <div class="col-lg-6"> <input type="text" name="basic" class="form-control" placeholder="Suffix"> </div> </div>
+                                            <!-- /repeat password -->
+                                            <!-- Email field -->
+                                            <div class="form-group"> <label class="control-label col-lg-3">Greeting</label> <div class="col-lg-6"> <input type="text" name="basic" class="form-control" id="email" placeholder="Greeting"> </div> </div>
+                                            <!-- /email field -->
+                                            <!-- Basic text input -->
+                                            <div class="form-group"> <label class="control-label col-lg-3">Gender<span class="text-danger">*</span></label> <div class="col-lg-6"> <select class="bootstrap-select" data-width="100%"> <option value="AK">Male</option> <option value="HI">Female</option> </select> </div> </div>
+                                            <!-- /basic text input -->
+                                            <!-- Minimum characters -->
+                                            <div class="form-group"> <label class="control-label col-lg-3">Social</label> <div class="col-lg-6"> <input type="text" name="basic" class="form-control" placeholder="Social"> </div> </div>
+                                            <!-- /minimum characters -->
+                                            <div class="form-group"> <label class="control-label col-lg-3">Birthdate</label> <div class="col-lg-9"> <div class="input-group"> <div class="input-group-btn"> <select name="optday" id="optday" class="form-control" onchange="fndatecalculate();"> <option value="" selected="selected">Select Date</option> <option value="01">01</option> <option value="02">02</option> <option value="03">03</option> <option value="04">04</option> <option value="05">05</option> <option value="06">06</option> <option value="07">07</option> <option value="08">08</option> <option value="09">09</option> <option value="10">10</option> <option value="11">11</option> <option value="12">12</option> <option value="13">13</option> <option value="14">14</option> <option value="15">15</option> <option value="16">16</option> <option value="17">17</option> <option value="18">18</option> <option value="19">19</option> <option value="20">20</option> <option value="21">21</option> <option value="22">22</option> <option value="23">23</option> <option value="24">24</option> <option value="25">25</option> <option value="26">26</option> <option value="27">27</option> <option value="28">28</option> <option value="29">29</option> <option value="30">30</option> <option value="31">31</option> </select> </div> <div class="input-group-btn"> <select name="optmonth" id="optmonth" class="form-control" onchange="fndatecalculate();"> <option value="" selected="selected">Select Month</option> <option value="01">Jan</option> <option value="02">Feb</option> <option value="03">Mar</option> <option value="04">Apr</option> <option value="05">May</option> <option value="06">Jun</option> <option value="07">Jul</option> <option value="08">Aug</option> <option value="09">Sep</option> <option value="10">Oct</option> <option value="11">Nov</option> <option value="12">Dec</option> </select> </div> <div class="input-group-btn"> <select name="optyear" id="optyear" class="form-control" onchange="fndatecalculate();"> <option value="" selected="selected">Select Year</option> <option value="2017">2017</option> <option value="2016">2016</option> <option value="2015">2015</option> <option value="2014">2014</option> <option value="2013">2013</option> <option value="2012">2012</option> <option value="2011">2011</option> <option value="2010">2010</option> <option value="2009">2009</option> <option value="2008">2008</option> <option value="2007">2007</option> <option value="2006">2006</option> <option value="2005">2005</option> <option value="2004">2004</option> <option value="2003">2003</option> <option value="2002">2002</option> <option value="2001">2001</option> <option value="2000">2000</option> <option value="1999">1999</option> <option value="1998">1998</option> <option value="1997">1997</option> <option value="1996">1996</option> <option value="1995">1995</option> <option value="1994">1994</option> <option value="1993">1993</option> <option value="1992">1992</option> <option value="1991">1991</option> <option value="1990">1990</option> <option value="1989">1989</option> <option value="1988">1988</option> <option value="1987">1987</option> <option value="1986">1986</option> <option value="1985">1985</option> <option value="1984">1984</option> <option value="1983">1983</option> <option value="1982">1982</option> <option value="1981">1981</option> <option value="1980">1980</option> <option value="1979">1979</option> <option value="1978">1978</option> <option value="1977">1977</option> <option value="1976">1976</option> <option value="1975">1975</option> <option value="1974">1974</option> <option value="1973">1973</option> <option value="1972">1972</option> <option value="1971">1971</option> <option value="1970">1970</option> <option value="1969">1969</option> <option value="1968">1968</option> <option value="1967">1967</option> <option value="1966">1966</option> <option value="1965">1965</option> <option value="1964">1964</option> <option value="1963">1963</option> <option value="1962">1962</option> <option value="1961">1961</option> <option value="1960">1960</option> <option value="1959">1959</option> <option value="1958">1958</option> <option value="1957">1957</option> <option value="1956">1956</option> <option value="1955">1955</option> <option value="1954">1954</option> <option value="1953">1953</option> <option value="1952">1952</option> <option value="1951">1951</option> <option value="1950">1950</option> <option value="1949">1949</option> <option value="1948">1948</option> <option value="1947">1947</option> <option value="1946">1946</option> <option value="1945">1945</option> <option value="1944">1944</option> <option value="1943">1943</option> <option value="1942">1942</option> <option value="1941">1941</option> <option value="1940">1940</option> <option value="1939">1939</option> <option value="1938">1938</option> <option value="1937">1937</option> <option value="1936">1936</option> <option value="1935">1935</option> <option value="1934">1934</option> <option value="1933">1933</option> <option value="1932">1932</option> <option value="1931">1931</option> <option value="1930">1930</option> <option value="1929">1929</option> <option value="1928">1928</option> <option value="1927">1927</option> <option value="1926">1926</option> <option value="1925">1925</option> <option value="1924">1924</option> <option value="1923">1923</option> <option value="1922">1922</option> <option value="1921">1921</option> <option value="1920">1920</option> <option value="1919">1919</option> <option value="1918">1918</option> </select> </div> </div> </div> </div>
+                                            <!-- Minimum number -->
+                                            <div class="form-group"> <label class="control-label col-lg-3">Addresses <span class="text-danger">*</span></label> <div class="col-lg-9"> <textarea rows="5" cols="5" name="textarea" class="form-control" required="required" placeholder="Addresses"></textarea> </div> </div>
+                                            <!-- /minimum number -->
+                                            <!-- Maximum characters -->
+                                            <div class="form-group"> <label class="control-label col-lg-3">City <span class="text-danger">*</span></label> <div class="col-lg-9"> <input type="text" name="basic" class="form-control" required="required" placeholder="City"> </div> </div>
+                                            <!-- /maximum characters -->
+                                            <!-- Maximum characters -->
+                                            <div class="form-group"> <label class="control-label col-lg-3">State <span class="text-danger">*</span></label> <div class="col-lg-9"> <input type="text" name="basic" class="form-control" required="required" placeholder="State"> </div> </div>
+                                            <!-- /maximum characters -->
+                                            <!-- Maximum characters -->
+                                            <div class="form-group"> <label class="control-label col-lg-3">Pin Code <span class="text-danger">*</span></label> <div class="col-lg-9"> <input type="text" name="degits" class="form-control" required="required" placeholder="Pin Code"> </div> </div>
+                                            <!-- /maximum characters -->
+                                            <!-- Maximum number -->
+                                            <div class="form-group"> <label class="control-label col-lg-3">Contact Info <span class="text-danger">*</span></label> <div class="col-lg-9"> <input type="text" name="digits" class="form-control" required="required" placeholder="Contact Info"> </div> </div>
+                                            <!-- /maximum number -->
+                                            <!-- Basic textarea -->
+                                            <div class="form-group"> <label class="control-label col-lg-3">Referrals/ Professionals <span class="text-danger">*</span></label> <div class="col-lg-9"> <textarea rows="5" cols="5" name="textarea" class="form-control" required="required" placeholder="Referrals/ Professionals"></textarea> </div> </div>
+                                            <!-- /basic textarea -->
+                                        </fieldset> <div class="text-right"> <button type="reset" class="btn btn-default" id="reset">Reset <i class="icon-reload-alt position-right"></i></button> <button type="submit" class="btn btn-primary">Submit <i class="icon-arrow-right14 position-right"></i></button> </div>
+                                    </div>
+                                </div>
+                                <!-- /form validation -->
+                            </div>
+                            <!-- end col-md-12 -->
+                        </div>
+                        <!-- end row -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Modal; -->
+}
