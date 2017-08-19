@@ -38,22 +38,22 @@ namespace PracticeWeb.Common
 
         public bool IsInfoEnabled
         {
-            get { return (activeLogTypes.IndexOf("INFO") > -1); }
+            get { return (activeLogTypes!=null && activeLogTypes.IndexOf("INFO") > -1); }
             set { }
         }
         public bool IsDebugEnabled
         {
-            get { return (activeLogTypes.IndexOf("DEBUG") > -1); }
+            get { return (activeLogTypes != null && activeLogTypes.IndexOf("DEBUG") > -1); }
             set { }
         }
         public bool IsWarnEnabled
         {
-            get { return (activeLogTypes.IndexOf("WARN") > -1); }
+            get { return (activeLogTypes != null && activeLogTypes.IndexOf("WARN") > -1); }
             set { }
         }
         public bool IsErrorEnabled
         {
-            get { return (activeLogTypes.IndexOf("ERROR") > -1); }
+            get { return (activeLogTypes != null && activeLogTypes.IndexOf("ERROR") > -1); }
             set { }
         }
 

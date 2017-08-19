@@ -47,7 +47,7 @@ namespace PracticeWeb.UI.Models
 
         [UIHint("DateNullable")]
         [Required(ErrorMessage = "Please select birth year.")]
-        public DateTime BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
         public int BirthYear { get; set; }
         [Required(ErrorMessage = "Please select birth month.")]
         public int BirthMonth { get; set; }
@@ -222,7 +222,7 @@ namespace PracticeWeb.UI.Models
                 patient.LName = this.LName;
                 patient.MiddleI = this.MiddleI;
                 patient.Gender = this.Gender;
-                patient.Birthdate = this.BirthDate;
+                patient.Birthdate = (DateTime)this.BirthDate;
                 patient.Email = this.Email;
                 patient.Address = this.Address;
                 patient.City = this.City;

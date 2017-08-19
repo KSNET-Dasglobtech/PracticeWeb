@@ -4,13 +4,16 @@
     ViewBag.PageName = "patient-list";
 }
 <style type="text/css">
-    /*.k-grid tbody .k-button, .k-ie8 .k-grid tbody button.k-button {
-    min-width: 32px;
-}
+        .k-grid-content table {
+            border-bottom: solid 1px #d5d5d5;
+        }
+        /*.k-grid tbody .k-button, .k-ie8 .k-grid tbody button.k-button {
+        min-width: 32px;
+    }
 
-    .k-button-edit{
-        background-image:url("/Content/images/if_search.png")
-    }*/
+        .k-button-edit{
+            background-image:url("/Content/images/if_search.png")
+        }*/
 </style>
 
 <!-- Page header -->
@@ -95,6 +98,18 @@
             groupable: false,
             sortable: true,
             //filterable: true,
+
+            filterable: {
+                extra: false, //do not show extra filters
+                operators: { // redefine the string operators
+                    string: {
+                        contains: "Contains",
+                        startswith: "Starts With",
+                        eq: "Is Equal To"
+                    },
+                }
+            },
+
             pageable: {
                 refresh: true,
                 pageSizes: true,
@@ -108,11 +123,15 @@
             }, {
                 field: "Birthdate",
                 title: "Birth Date",
-                template: "#= kendo.toString(kendo.parseDate(Birthdate, 'yyyy-MM-dd'), 'MM/dd/yyyy') #"
+                template: "#= kendo.toString(kendo.parseDate(Birthdate, 'yyyy/MM/dd'), 'MM/dd/yyyy') #",
+                format: "{0:d}",
+                filterable: {
+                    ui: "datepicker"
+                }
             }, {
                 field: "Gender",
                 title: "Gender",
-                template: "# if (Gender==1) {# Male #} else if (Gender==2) {# Female #}#"
+                template: "# if (Gender==1) {# Male #} else if (Gender==2) {# Female #} else {# - #}#"
             }, {
                 field: "Email",
                 title: "Email",
@@ -150,7 +169,7 @@
                     $("#LName").val(data.LName);
                     $("#MiddleI").val(data.MiddleI);
                     $("#Gender").val(data.Gender);// $("#Gender").val(),
-                    $('#BirthDate').val(moment(data.Birthdate).format("MM/DD/YYYY"));
+                    $('#BirthDate').val(moment(data.BirthDate).format("MM/DD/YYYY"));
                     $("#Email").val(data.Email);
                     $("#Address").val(data.Address);
                     $("#City").val(data.City);
@@ -159,6 +178,7 @@
                     $("#HmPhone").val(data.HmPhone);
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
+                    debugger;
 
                 }
             });
@@ -229,8 +249,7 @@
             //reset();
         });
 
-        function reset()
-        {
+        function reset() {
             $("#PatNum").val(0);
             $("#Title").val('1');
             $("#FName").val('');
@@ -249,46 +268,47 @@
         $('#btnSave').click(function () {
             //if ($("#PatientForm").valid()) {
             debugger;
-            //var s = $("#patientFormId").validate();
-                var postData = {
-                    patNum: $("#PatNum").val(),
-                    title: $("#Title option:selected").text(),//$("#Title").val(),
-                    firstName: $("#FName").val(),
-                    lastName: $("#LName").val(),
-                    middleName: $("#MiddleI").val(),
-                    gender: $("#Gender option:selected").val(),// $("#Gender").val(),
-                    birthDate: $('#BirthDate').val(),
-                    email: $("#Email").val(),
-                    address: $("#Address").val(),
-                    city: $("#City").val(),
-                    state: $("#State").val(),
-                    pinCode: $("#Zip").val(),
-                    phone: $("#HmPhone").val()
-                };
-                //addAntiForgeryToken(postData);
-                $.ajax({
-                    cache: false,
-                    type: "POST",
-                    url: "@(Url.Action("SavePetient", "Patient"))",
-                    data: postData,
-                    success: function (data) {
-                        if (data.result === 'Error') {
-                            //show error
-                            $('.alert-danger').show();
-                            $('.alert-danger').html('Error while updating record.');
-                        }
-                        else if (data.result === 'Success') {
-                            $("#PatNum").val(0);
-                            window.location.href = "@(Url.Action("Index", "Patient"))";
-                            //$('#patientDataGrid').data('kendoGrid').dataSource.read();
-                            //$("#model_AddPatient .close").click()
-                            //$('#patientDataGrid').modal().hide();
-                        }
-                    },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        //$('#save-workHistoryDetails').attr('disabled', false);
+            var s = $("#patientFormId").validate();
+            //var s = $("#patientFormId").valid();
+            var postData = {
+                patNum: $("#PatNum").val(),
+                title: $("#Title option:selected").text(),//$("#Title").val(),
+                firstName: $("#FName").val(),
+                lastName: $("#LName").val(),
+                middleName: $("#MiddleI").val(),
+                gender: $("#Gender option:selected").val(),// $("#Gender").val(),
+                birthDate: $('#BirthDate').val(),
+                email: $("#Email").val(),
+                address: $("#Address").val(),
+                city: $("#City").val(),
+                state: $("#State").val(),
+                pinCode: $("#Zip").val(),
+                phone: $("#HmPhone").val()
+            };
+            //addAntiForgeryToken(postData);
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "@(Url.Action("SavePetient", "Patient"))",
+                data: postData,
+                success: function (data) {
+                    if (data.result === 'Error') {
+                        //show error
+                        $('.alert-danger').show();
+                        $('.alert-danger').html('Error while updating record.');
                     }
-                });
+                    else if (data.result === 'Success') {
+                        $("#PatNum").val(0);
+                        window.location.href = "@(Url.Action("Index", "Patient"))";
+                        //$('#patientDataGrid').data('kendoGrid').dataSource.read();
+                        //$("#model_AddPatient .close").click()
+                        //$('#patientDataGrid').modal().hide();
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    //$('#save-workHistoryDetails').attr('disabled', false);
+                }
+            });
             //}
             //}
         });

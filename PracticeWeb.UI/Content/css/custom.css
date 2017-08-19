@@ -73,9 +73,6 @@
 #people .navbar .navbar-nav li.link4 a { border-color:#db42e8}
 #people .navbar .navbar-nav li.link3.active a { background:#51a0ed; color:#fff;}
 
-
-
-
 @media (max-width: 768px) { 
 	#people .navbar-toggle { float:left;}
 	#people .navbar-collapse {  border:solid 1px #ccc}

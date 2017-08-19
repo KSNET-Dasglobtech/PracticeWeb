@@ -28,7 +28,28 @@ namespace PracticeWeb.UI.Controllers
         {
             PatientModel model = new PatientModel();
             var patient = model.GetPatientDetails(patNum);
-            return Json(patient, JsonRequestBehavior.AllowGet);
+            PatientModel patientModel = new Models.PatientModel();
+
+            if(patient!=null)
+            {
+                patientModel.PatNum = patient.PatNum;
+                patientModel.Title = patient.Title;
+                patientModel.FName = patient.FName;
+                patientModel.LName = patient.LName;
+                patientModel.MiddleI = patient.MiddleI;
+                patientModel.BirthDate = patient.Birthdate;
+                //patientModel.Greeting = patient.Greeting;
+                patientModel.Gender = patient.Gender;
+                patientModel.Address = patient.Address;
+                patientModel.City = patient.City;
+                patientModel.State = patient.State;
+                patientModel.Zip = patient.Zip;
+                patientModel.Email = patient.Email;
+
+                patientModel.HmPhone = patient.HmPhone;
+            }
+
+            return Json(patientModel, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult DeletePatient(long patnum)
