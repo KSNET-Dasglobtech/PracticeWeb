@@ -1,4 +1,5 @@
-﻿
+﻿@model PracticeWeb.UI.Models.AppointmentModel
+
 @{
     ViewBag.Title = "Schedule";
     ViewBag.PageName = "schedule";
@@ -198,258 +199,6 @@
                                                         <!-- end panel -->
                                                     </div>
                                                 </div>
-
-
-                                                <script>
-
-
-
-                                                    $(function () {
-
-                                                        $("#scheduler").kendoScheduler({
-                                                            date: new Date(),
-                                                            majorTick: 15, // a major tick represents 120 minutes (2 hours)
-                                                            minorTickCount: 1,
-                                                            majorTimeHeaderTemplate: kendo.template("<strong>#=kendo.toString(date, 'h')#</strong><sup>#=kendo.toString(date, 'mm')#</sup>"),
-                                                            startTime: new Date("2017/8/01 10:00 AM"),
-                                                            height: 630,
-                                                            views: [
-                                                                //"day",
-                                                                { type: "day", selected: true },
-                                                                //"week",
-                                                                { type: "week", title: "Week" },
-                                                                { type: "month", title: "Month" },
-                                                                { type: "agenda", title: "List View" }
-                                                            ],
-
-                                                            timezone: "Etc/UTC",
-                                                            editable: {
-                                                                template: $("#editor").html()
-                                                            },
-
-                                                            dataSource: {
-                                                                batch: true,
-
-                                                                transport: {
-                                                                    read: {
-                                                                        url: "https://demos.telerik.com/kendo-ui/service/meetings",
-                                                                        dataType: "jsonp"
-                                                                    },
-                                                                    update: {
-                                                                        url: "https://demos.telerik.com/kendo-ui/service/meetings/update",
-                                                                        dataType: "jsonp"
-                                                                    },
-                                                                    create: {
-                                                                        url: "https://demos.telerik.com/kendo-ui/service/meetings/create",
-                                                                        dataType: "jsonp"
-                                                                    },
-                                                                    destroy: {
-                                                                        url: "https://demos.telerik.com/kendo-ui/service/meetings/destroy",
-                                                                        dataType: "jsonp"
-                                                                    },
-                                                                    parameterMap: function (options, operation) {
-                                                                        if (operation !== "read" && options.models) {
-                                                                            return { models: kendo.stringify(options.models) };
-                                                                        }
-                                                                    }
-                                                                },
-                                                                schema: {
-                                                                    model: {
-                                                                        id: "meetingID",
-                                                                        fields: {
-                                                                            meetingID: { from: "MeetingID", type: "number" },
-                                                                            title: { from: "Title", defaultValue: "Search Patient", validation: { required: true } },
-                                                                            start: { type: "date", from: "Start" },
-                                                                            end: { type: "date", from: "End" },
-                                                                            startTimezone: { from: "StartTimezone" },
-                                                                            endTimezone: { from: "EndTimezone" },
-                                                                            description: { from: "sfsd" },
-                                                                            recurrenceId: { from: "RecurrenceID" },
-                                                                            recurrenceRule: { from: "RecurrenceRule" },
-                                                                            recurrenceException: { from: "RecurrenceException" },
-                                                                            roomId: { from: "RoomID", nullable: true },
-                                                                            attendees: { from: "Attendees", nullable: true },
-                                                                            isAllDay: { type: "boolean", from: "IsAllDay" }
-                                                                        }
-                                                                    }
-                                                                }
-                                                            },
-                                                            group: {
-                                                                date: true,
-                                                                resources: ["Rooms"]
-
-                                                            },
-                                                            resources: [
-
-                                                                {
-                                                                    field: "roomId",
-                                                                    name: "Rooms",
-                                                                    dataSource: [
-                                                                        { text: "Consult", value: 1, color: "#ff6700" },
-                                                                        { text: "Chair 1", value: 2, color: "#5cae30" },
-                                                                        { text: "Chair 2", value: 3, color: "#286eb2" },
-                                                                        { text: "Chair 3", value: 4, color: "#db42e8" },
-                                                                        { text: "Chair 4", value: 5, color: "#f58a8a" },
-                                                                        { text: "Chair 5", value: 6, color: "#647bff" },
-                                                                        { text: "Chair 6", value: 7, color: "#fef197" }
-                                                                    ],
-                                                                    title: "Chair"
-                                                                },
-                                                                {
-                                                                    field: "attendees",
-                                                                    name: "Attendees",
-                                                                    dataSource: [
-                                                                        { text: "Casa Grande", value: 1, color: "#ff6700" },
-                                                                        { text: "Chandler", value: 2, color: "#5cae30" },
-                                                                        { text: "Phoenix", value: 3, color: "#286eb2" },
-                                                                        { text: "Tatum", value: 4, color: "#db42e8" }
-                                                                    ],
-                                                                    multiple: true,
-                                                                    title: "Doctors"
-                                                                }
-                                                            ]
-                                                        });
-
-
-                                                        var scheduler = $("#scheduler").data("kendoScheduler");
-
-
-                                                        $(".search_btn").click(function () {
-                                                            scheduler.addEvent({});
-                                                            $(".k-widget.k-window").addClass("bookedAppointement");
-                                                        });
-
-                                                        $("#orientation").kendoDropDownList({
-                                                            value: scheduler.options.group.orientation,
-                                                            change: function () {
-                                                                scheduler.options.group.orientation = this.value();
-                                                                scheduler.view(scheduler.view().name);
-                                                            }
-                                                        });
-                                                    });
-
-                                                </script>
-
-                                                <style>
-
-									.k-scheduler-table .k-slot-cell { text-align:center;}
-
-									#team-schedule #people label { background:#fff; border-bottom:solid 5px #ff6700;  padding:10px 25px;    padding-left: 25px;     line-height: normal;  margin-left:0; float:left;     font-weight: 500;  font-size:15px  }
-									#team-schedule input[type="checkbox"]  { margin-top:0}
-
-
-
-
-									.sidebar_right  { padding-top:40px}
-									.sidebar_right .panel-heading {
-									     padding: 5px 10px;
-									}
-									.sidebar_right .panel-body {
-										padding: 5px 10px;
-									}
-									.sidebar_right .Occupied_box .panel-heading {
-										background:#d18b05;
-									}
-									.sidebar_right .Occupied_box .panel-heading h5  {
-										color:#fff;
-										font-weight:500;
-										font-size:14px;
-									}
-									.sidebar_right .Occupied_box .panel-body {
-										 font-size:18px;
-										 color:#d18b05;
-										 font-weight:600;
-									}
-
-									.sidebar_right .free_box .panel-heading {
-										background:#3e9212;
-									}
-									.sidebar_right .free_box .panel-heading h5  {
-										color:#fff;
-										font-weight:500;
-										font-size:14px;
-									}
-
-									.sidebar_right .free_box .panel-body {
-										 font-size:18px;
-										 color:#3e9212;
-										 font-weight:600;
-									}
-
-									.blink {
-										-webkit-animation: blink .75s linear infinite;
-										-moz-animation: blink .75s linear infinite;
-										-ms-animation: blink .75s linear infinite;
-										-o-animation: blink .75s linear infinite;
-										 animation: blink .75s linear infinite;
-									}
-									@-webkit-keyframes blink {
-										0% { opacity: 1; }
-										50% { opacity: 1; }
-										50.01% { opacity: 0; }
-										100% { opacity: 0; }
-									}
-									@-moz-keyframes blink {
-										0% { opacity: 1; }
-										50% { opacity: 1; }
-										50.01% { opacity: 0; }
-										100% { opacity: 0; }
-									}
-									@-ms-keyframes blink {
-										0% { opacity: 1; }
-										50% { opacity: 1; }
-										50.01% { opacity: 0; }
-										100% { opacity: 0; }
-									}
-									@-o-keyframes blink {
-										0% { opacity: 1; }
-										50% { opacity: 1; }
-										50.01% { opacity: 0; }
-										100% { opacity: 0; }
-									}
-									@keyframes blink {
-										0% { opacity: 1; }
-										50% { opacity: 1; }
-										50.01% { opacity: 0; }
-										100% { opacity: 0; }
-									}
-									/* @end */
-
-									.k-nav-current > .k-link span + span {
-										max-width: 200px;
-										display: inline-block;
-										white-space: nowrap;
-										text-overflow: ellipsis;
-										overflow: hidden;
-										vertical-align: top;
-									}
-
-									#team-schedule {
-										height: 43px;
-										position: relative;
-									}
-
-									#people {
-										position: absolute;
-										left: 0;
-									}
-									#alex {
-										position: absolute;
-										left: 4px;
-										top: 81px;
-									}
-									#bob {
-										position: absolute;
-										left: 119px;
-										top: 81px;
-									}
-									#charlie {
-										position: absolute;
-										left: 234px;
-										top: 81px;
-									}
-                                                </style>
-
                                             </div>
                                             <!-- end panel-body -->
 
@@ -485,5 +234,189 @@
 
     </div>
     <!-- /content area -->
-
 </div>
+
+<script id="customEditorTemplate" type="text/x-kendo-template">
+    <div class="k-edit-label"><label for="title">Patient</label></div>
+    <div data-container-for="title" class="k-edit-field" style="display:none;">
+        <input type="text" class="k-input k-textbox" name="title" required="required" data-bind="value:title">
+    </div>
+    <div data-container-for="patient" class="k-edit-field">
+        <select id="patient" data-bind="value:patient" data-role="dropdownlist"
+                data-value-field="value" data-text-field="text">
+            @if (Model.PatientList != null && Model.PatientList.Count > 0)
+            {
+                foreach (var patient in Model.PatientList)
+                {
+                    <option value="@patient.PatNum">@patient.Name</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="k-edit-label">
+        <label for="start">Start</label>
+    </div>
+    <div data-container-for="start" class="k-edit-field">
+        <input type="text"
+               data-role="datetimepicker"
+               data-interval="15"
+               data-type="date"
+               data-bind="value:start,invisible:isAllDay"
+               name="start" />
+        <input type="text" data-type="date" data-role="datepicker" data-bind="value:start,visible:isAllDay" name="start" />
+        <span data-bind="text: startTimezone"></span>
+        <span data-for="start" class="k-invalid-msg" style="display: none;"></span>
+    </div>
+    <div class="k-edit-label"><label for="end">End</label></div>
+    <div data-container-for="end" class="k-edit-field">
+        <input type="text" data-type="date" data-role="datetimepicker" data-bind="value:end,invisible:isAllDay" name="end" data-datecompare-msg="End date should be greater than or equal to the start date" />
+        <input type="text" data-type="date" data-role="datepicker" data-bind="value:end,visible:isAllDay" name="end" data-datecompare-msg="End date should be greater than or equal to the start date" />
+        <span data-bind="text: endTimezone"></span>
+        <span data-bind="text: startTimezone, invisible: endTimezone"></span>
+        <span data-for="end" class="k-invalid-msg" style="display: none;"></span>
+    </div>
+    <div class="k-edit-label"><label for="description">Description</label></div>
+    <div data-container-for="description" class="k-edit-field">
+        <textarea name="description" class="k-textbox" data-bind="value:description"></textarea>
+    </div>
+    <div class="k-edit-label"><label for="attendees">Room</label></div>
+    <div data-container-for="roomId" class="k-edit-field">
+        <select id="roomId" data-bind="value:roomId" data-role="dropdownlist"
+                data-value-field="value" data-text-field="text">
+            @if (Model.RoomList != null && Model.RoomList.Count > 0)
+            {
+                foreach (var room in Model.RoomList)
+                {
+                    <option value="@room.OperatoryID">@room.OperatoryName</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="k-edit-label"><label for="attendees">Doctor</label></div>
+    <div data-container-for="attendees" class="k-edit-field">
+        <select id="attendees" data-bind="value:attendees" data-role="dropdownlist"
+                data-value-field="value" data-text-field="text">
+            @if (Model.DoctorList != null && Model.DoctorList.Count > 0)
+            {
+                foreach (var doctor in Model.DoctorList)
+                {
+                    <option value="@doctor.DoctorId">@doctor.DoctorName</option>
+                }
+            }
+        </select>
+    </div>
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        var roomListJson = JSON.parse('@Html.Raw(Model.RoomListJson)');
+
+        $("#scheduler").kendoScheduler({
+            date: new Date(),
+            majorTick: 15, // a major tick represents 120 minutes (2 hours)
+            minorTickCount: 1,
+            majorTimeHeaderTemplate: kendo.template("<strong>#=kendo.toString(date, 'h')#</strong><sup>#=kendo.toString(date, 'mm')#</sup>"),
+            startTime: new Date("2017/8/01 10:00 AM"),
+            height: 630,
+            views: [
+                //"day",
+                { type: "day", selected: true },
+                //"week",
+                { type: "week", title: "Week" },
+                { type: "month", title: "Month" },
+                { type: "agenda", title: "List View" }
+            ],
+            messages: {
+                editor: {
+                    editorTitle: "Appointment"
+                }
+            },
+            timezone: "Etc/UTC",
+            editable: {
+                template: $("#customEditorTemplate").html()
+            },
+
+            dataSource: {
+                batch: true,
+                transport: {
+                    read: {
+                        url: "@Url.Action("GetAppointmentList", "Appointment")",
+                        //dataType: "jsonp"
+                    }
+                    ,
+                    update: {
+                        url: "@Url.Action("AddUpdateAppointment", "Appointment")",
+                        //dataType: "jsonp"
+                    },
+                    create: {
+                        url: "@Url.Action("AddUpdateAppointment", "Appointment")",
+                        //dataType: "jsonp"
+                    },
+                    destroy: {
+                        url: "@Url.Action("DeleteAppointment", "Appointment")",
+                        //dataType: "jsonp"
+                    },
+                    parameterMap: function (options, operation) {
+                        if (operation !== "read" && options.models) {
+                            return { models: kendo.stringify(options.models) };
+                        }
+                    }
+                },
+                schema: {
+                    model: {
+                        id: "meetingID",
+                        fields: {
+                            meetingID: { from: "AppointmentID", type: "number" },
+
+                            title: { from: "PatName", defaultValue: "Pat Name" },
+                            start: { type: "date", from: "StartTime" },
+                            end: { type: "date", from: "EndTime" },
+                            //startTimezone: { from: "StartTimezone" },
+                            //endTimezone: { from: "EndTimezone" },
+                            description: { from: "Description" },
+                            //recurrenceId: { from: "RecurrenceID" },
+                            //recurrenceRule: { from: "RecurrenceRule" },
+                            //recurrenceException: { from: "RecurrenceException" },
+                            patient: { from: "PatNum", type: "number", validation: { required: true } },
+                            roomId: { from: "OperatoryID", nullable: true },
+                            attendees: { from: "DoctorID", type: "number", validation: { required: true } },
+                            isAllDay: { type: "boolean", from: "IsAllDay" }
+                        }
+                    }
+                }
+            },
+            group: {
+                date: true,
+                resources: ["Rooms"]
+
+            },
+            resources: [
+                {
+                    field: "roomId",
+                    name: "Rooms",
+                    dataSource: roomListJson,
+                    title: "Chair"
+                },
+            ]
+        });
+
+
+        var scheduler = $("#scheduler").data("kendoScheduler");
+
+
+        $(".search_btn").click(function () {
+            scheduler.addEvent({});
+            $(".k-widget.k-window").addClass("bookedAppointement");
+        });
+
+        $("#orientation").kendoDropDownList({
+            value: scheduler.options.group.orientation,
+            change: function () {
+                scheduler.options.group.orientation = this.value();
+                scheduler.view(scheduler.view().name);
+            }
+        });
+    });
+
+</script>
+

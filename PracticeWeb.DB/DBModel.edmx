@@ -38,6 +38,22 @@
           <Property Name="ColorOverride" Type="int" Nullable="false" />
           <Property Name="AppointmentTypeNum" Type="bigint" Nullable="false" />
         </EntityType>
+        <EntityType Name="Doctor">
+          <Key>
+            <PropertyRef Name="DoctorId" />
+          </Key>
+          <Property Name="DoctorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DoctorName" Type="varchar" MaxLength="100" />
+          <Property Name="KeyColor" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Operatory">
+          <Key>
+            <PropertyRef Name="OperatoryID" />
+          </Key>
+          <Property Name="OperatoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OperatoryName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="KeyColor" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="PatAppointment">
           <Key>
             <PropertyRef Name="AppointmentID" />
@@ -49,7 +65,7 @@
           <Property Name="EndTime" Type="datetime" />
           <Property Name="IsAllDay" Type="bit" />
           <Property Name="Description" Type="nvarchar" MaxLength="100" />
-          <Property Name="DoctorId" Type="int" />
+          <Property Name="DoctorID" Type="int" />
         </EntityType>
         <EntityType Name="Patient">
           <Key>
@@ -136,6 +152,30 @@
           <Property Name="SecDateEntry" Type="datetime" Nullable="false" />
           <Property Name="HasSuperBilling" Type="smallint" Nullable="false" />
         </EntityType>
+        <Association Name="FK_PatAppointment_Doctor">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="0..1" />
+          <End Role="PatAppointment" Type="Self.PatAppointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="DoctorId" />
+            </Principal>
+            <Dependent Role="PatAppointment">
+              <PropertyRef Name="DoctorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatAppointment_Operatory">
+          <End Role="Operatory" Type="Self.Operatory" Multiplicity="0..1" />
+          <End Role="PatAppointment" Type="Self.PatAppointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operatory">
+              <PropertyRef Name="OperatoryID" />
+            </Principal>
+            <Dependent Role="PatAppointment">
+              <PropertyRef Name="OperatoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PatAppointment_Patient">
           <End Role="Patient" Type="Self.Patient" Multiplicity="0..1" />
           <End Role="PatAppointment" Type="Self.PatAppointment" Multiplicity="*" />
@@ -153,15 +193,28 @@
         </Function>
         <Function Name="GetAllAppointments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetAllPatients" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="GetAppointments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAppointments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="appointmentID" Type="bigint" Mode="In" />
+        </Function>
         <Function Name="GetPatientById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="patNum" Type="bigint" Mode="In" />
         </Function>
+        <Function Name="GetPatientList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetPatients" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="DBModelStoreContainer">
           <EntitySet Name="Appointment" EntityType="Self.Appointment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Doctor" EntityType="Self.Doctor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Operatory" EntityType="Self.Operatory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatAppointment" EntityType="Self.PatAppointment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_PatAppointment_Doctor" Association="Self.FK_PatAppointment_Doctor">
+            <End Role="Doctor" EntitySet="Doctor" />
+            <End Role="PatAppointment" EntitySet="PatAppointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatAppointment_Operatory" Association="Self.FK_PatAppointment_Operatory">
+            <End Role="Operatory" EntitySet="Operatory" />
+            <End Role="PatAppointment" EntitySet="PatAppointment" />
+          </AssociationSet>
           <AssociationSet Name="FK_PatAppointment_Patient" Association="Self.FK_PatAppointment_Patient">
             <End Role="Patient" EntitySet="Patient" />
             <End Role="PatAppointment" EntitySet="PatAppointment" />
@@ -302,10 +355,23 @@
           <FunctionImport Name="GetPatientById" ReturnType="Collection(DBModel.GetPatientById_Result)">
           <Parameter Name="patNum" Mode="In" Type="Int64" />
           </FunctionImport>
-          <FunctionImport Name="GetAppointments" ReturnType="Collection(DBModel.GetAppointments_Result)" />
+          <FunctionImport Name="GetAppointments" ReturnType="Collection(DBModel.AppointmentDetail)" >
+            <Parameter Name="appointmentID" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="GetPatientList" ReturnType="Collection(DBModel.PatientShortDetail)" />
           <EntitySet Name="PatAppointments" EntityType="DBModel.PatAppointment" />
           <AssociationSet Name="FK_PatAppointment_Patient" Association="DBModel.FK_PatAppointment_Patient">
             <End Role="Patient" EntitySet="Patients" />
+            <End Role="PatAppointment" EntitySet="PatAppointments" />
+          </AssociationSet>
+          <EntitySet Name="Doctors" EntityType="DBModel.Doctor" />
+          <EntitySet Name="Operatories" EntityType="DBModel.Operatory" />
+          <AssociationSet Name="FK_PatAppointment_Doctor" Association="DBModel.FK_PatAppointment_Doctor">
+            <End Role="Doctor" EntitySet="Doctors" />
+            <End Role="PatAppointment" EntitySet="PatAppointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatAppointment_Operatory" Association="DBModel.FK_PatAppointment_Operatory">
+            <End Role="Operatory" EntitySet="Operatories" />
             <End Role="PatAppointment" EntitySet="PatAppointments" />
           </AssociationSet>
         </EntityContainer>
@@ -353,22 +419,9 @@
           <Property Type="String" Name="Zip" Nullable="true" MaxLength="150" />
           <Property Type="String" Name="HmPhone" Nullable="true" MaxLength="45" />
         </ComplexType>
-        <ComplexType Name="GetAppointments_Result">
-          <Property Type="Int64" Name="AppointmentID" Nullable="false" />
-          <Property Type="Int64" Name="PatNum" Nullable="true" />
-          <Property Type="String" Name="PatName" Nullable="true" MaxLength="301" />
-          <Property Type="DateTime" Name="PatBirthdate" Nullable="false" Precision="23" />
-          <Property Type="Int32" Name="OperatoryID" Nullable="true" />
-          <Property Type="String" Name="OperatoryName" Nullable="false" MaxLength="50" />
-          <Property Type="DateTime" Name="StartTime" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="EndTime" Nullable="true" Precision="23" />
-          <Property Type="Boolean" Name="IsAllDay" Nullable="true" />
-          <Property Type="String" Name="Description" Nullable="true" MaxLength="100" />
-          <Property Type="Int32" Name="DoctorID" Nullable="false" />
-          <Property Type="String" Name="DoctorName" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="KeyColor" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="StartTimezone" Nullable="false" MaxLength="1" />
-          <Property Type="String" Name="EndTimezone" Nullable="false" MaxLength="1" />
+        <ComplexType Name="PatientShortDetail">
+          <Property Type="Int64" Name="PatNum" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="301" />
         </ComplexType>
         <EntityType Name="PatAppointment">
           <Key>
@@ -381,8 +434,10 @@
           <Property Name="EndTime" Type="DateTime" Precision="3" />
           <Property Name="IsAllDay" Type="Boolean" />
           <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="DoctorId" Type="Int32" />
+          <Property Name="DoctorID" Type="Int32" />
           <NavigationProperty Name="Patient" Relationship="DBModel.FK_PatAppointment_Patient" FromRole="PatAppointment" ToRole="Patient" />
+          <NavigationProperty Name="Doctor" Relationship="DBModel.FK_PatAppointment_Doctor" FromRole="PatAppointment" ToRole="Doctor" />
+          <NavigationProperty Name="Operatory" Relationship="DBModel.FK_PatAppointment_Operatory" FromRole="PatAppointment" ToRole="Operatory" />
         </EntityType>
         <Association Name="FK_PatAppointment_Patient">
           <End Type="DBModel.Patient" Role="Patient" Multiplicity="0..1" />
@@ -396,6 +451,65 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Doctor">
+          <Key>
+            <PropertyRef Name="DoctorId" />
+          </Key>
+          <Property Name="DoctorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DoctorName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="KeyColor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PatAppointments" Relationship="DBModel.FK_PatAppointment_Doctor" FromRole="Doctor" ToRole="PatAppointment" />
+        </EntityType>
+        <EntityType Name="Operatory">
+          <Key>
+            <PropertyRef Name="OperatoryID" />
+          </Key>
+          <Property Name="OperatoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OperatoryName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="KeyColor" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PatAppointments" Relationship="DBModel.FK_PatAppointment_Operatory" FromRole="Operatory" ToRole="PatAppointment" />
+        </EntityType>
+        <Association Name="FK_PatAppointment_Doctor">
+          <End Type="DBModel.Doctor" Role="Doctor" Multiplicity="0..1" />
+          <End Type="DBModel.PatAppointment" Role="PatAppointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="DoctorId" />
+            </Principal>
+            <Dependent Role="PatAppointment">
+              <PropertyRef Name="DoctorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatAppointment_Operatory">
+          <End Type="DBModel.Operatory" Role="Operatory" Multiplicity="0..1" />
+          <End Type="DBModel.PatAppointment" Role="PatAppointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operatory">
+              <PropertyRef Name="OperatoryID" />
+            </Principal>
+            <Dependent Role="PatAppointment">
+              <PropertyRef Name="OperatoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="AppointmentDetail">
+          <Property Type="Int64" Name="AppointmentID" Nullable="false" />
+          <Property Type="Int64" Name="PatNum" Nullable="true" />
+          <Property Type="String" Name="PatName" Nullable="true" MaxLength="301" />
+          <Property Type="DateTime" Name="PatBirthdate" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="OperatoryID" Nullable="true" />
+          <Property Type="String" Name="OperatoryName" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="StartTime" Nullable="true" Precision="23" />
+          <Property Type="String" Name="StartTimezone" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="EndTimezone" Nullable="false" MaxLength="1" />
+          <Property Type="DateTime" Name="EndTime" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="IsAllDay" Nullable="true" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="DoctorID" Nullable="false" />
+          <Property Type="String" Name="DoctorName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="KeyColor" Nullable="true" MaxLength="50" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -573,8 +687,8 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetAppointments" FunctionName="DBModel.Store.GetAppointments">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="DBModel.GetAppointments_Result">
+          <ResultMapping>
+              <ComplexTypeMapping TypeName="DBModel.AppointmentDetail">
                 <ScalarProperty Name="AppointmentID" ColumnName="AppointmentID" />
                 <ScalarProperty Name="PatNum" ColumnName="PatNum" />
                 <ScalarProperty Name="PatName" ColumnName="PatName" />
@@ -582,21 +696,29 @@
                 <ScalarProperty Name="OperatoryID" ColumnName="OperatoryID" />
                 <ScalarProperty Name="OperatoryName" ColumnName="OperatoryName" />
                 <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="StartTimezone" ColumnName="StartTimezone" />
+                <ScalarProperty Name="EndTimezone" ColumnName="EndTimezone" />
                 <ScalarProperty Name="EndTime" ColumnName="EndTime" />
                 <ScalarProperty Name="IsAllDay" ColumnName="IsAllDay" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
                 <ScalarProperty Name="DoctorName" ColumnName="DoctorName" />
                 <ScalarProperty Name="KeyColor" ColumnName="KeyColor" />
-                <ScalarProperty Name="StartTimezone" ColumnName="StartTimezone" />
-                <ScalarProperty Name="EndTimezone" ColumnName="EndTimezone" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetPatientList" FunctionName="DBModel.Store.GetPatientList">
+          <ResultMapping>
+              <ComplexTypeMapping TypeName="DBModel.PatientShortDetail">
+                <ScalarProperty Name="PatNum" ColumnName="PatNum" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
           <EntitySetMapping Name="PatAppointments">
             <EntityTypeMapping TypeName="DBModel.PatAppointment">
               <MappingFragment StoreEntitySet="PatAppointment">
-                <ScalarProperty Name="DoctorId" ColumnName="DoctorId" />
+                <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="IsAllDay" ColumnName="IsAllDay" />
                 <ScalarProperty Name="EndTime" ColumnName="EndTime" />
@@ -604,6 +726,24 @@
                 <ScalarProperty Name="OperatoryID" ColumnName="OperatoryID" />
                 <ScalarProperty Name="PatNum" ColumnName="PatNum" />
                 <ScalarProperty Name="AppointmentID" ColumnName="AppointmentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Doctors">
+            <EntityTypeMapping TypeName="DBModel.Doctor">
+              <MappingFragment StoreEntitySet="Doctor">
+                <ScalarProperty Name="KeyColor" ColumnName="KeyColor" />
+                <ScalarProperty Name="DoctorName" ColumnName="DoctorName" />
+                <ScalarProperty Name="DoctorId" ColumnName="DoctorId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Operatories">
+            <EntityTypeMapping TypeName="DBModel.Operatory">
+              <MappingFragment StoreEntitySet="Operatory">
+                <ScalarProperty Name="KeyColor" ColumnName="KeyColor" />
+                <ScalarProperty Name="OperatoryName" ColumnName="OperatoryName" />
+                <ScalarProperty Name="OperatoryID" ColumnName="OperatoryID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

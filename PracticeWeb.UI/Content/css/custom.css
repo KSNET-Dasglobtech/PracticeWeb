@@ -33,7 +33,7 @@
 .k-scheduler-dayview .k-link.k-nav-day { display:none;}
 
 /* pop up*/
-.k-window-titlebar .k-window-title { display:none; }
+.k-window-titlebar .k-window-title { /*display:none;*/ }
 /*.k-window-titlebar:after { position:absolute; content:"Appointments"; width:150px; height:30px; left: 15px; top: 0; line-height:30px;    white-space: nowrap;  }*/
 .k-window-titlebar:after { position:absolute; content:""; width:150px; height:30px; left: 15px; top: 0; line-height:30px;    white-space: nowrap;  }
 
@@ -54,8 +54,8 @@
 .k-popup-edit-form [data-container-for="recurrenceRule"], 
 .k-popup-edit-form .k-edit-label label[for=recurrenceRule] { display:none;}
 
-.k-popup-edit-form .k-edit-label label[for=title] { text-indent: 100px; position:relative; }
-.k-popup-edit-form .k-edit-label label[for=title]:after { position:absolute; content:"Patient Name"; width:150px; height:25px; right: 27px; top: 0;    white-space: nowrap;  }
+/*.k-popup-edit-form .k-edit-label label[for=title] { text-indent: 100px; position:relative; }*/
+/*.k-popup-edit-form .k-edit-label label[for=title]:after { position:absolute; content:"Patient Name"; width:150px; height:25px; right: 27px; top: 0;    white-space: nowrap;  }*/
 
 /* end pop up*/
 
@@ -78,4 +78,122 @@
 	#people .navbar-collapse {  border:solid 1px #ccc}
 	#people .navbar .navbar-nav li a { padding: 10px;     font-size: 14px;}
 	#people .navbar .navbar-nav li a { border-width:2px;}
+}
+
+
+.k-scheduler-table .k-slot-cell { text-align:center;}
+
+#team-schedule #people label { background:#fff; border-bottom:solid 5px #ff6700;  padding:10px 25px;    padding-left: 25px;     line-height: normal;  margin-left:0; float:left;     font-weight: 500;  font-size:15px  }
+#team-schedule input[type="checkbox"]  { margin-top:0}
+
+
+
+
+.sidebar_right  { padding-top:40px}
+.sidebar_right .panel-heading {
+		padding: 5px 10px;
+}
+.sidebar_right .panel-body {
+	padding: 5px 10px;
+}
+.sidebar_right .Occupied_box .panel-heading {
+	background:#d18b05;
+}
+.sidebar_right .Occupied_box .panel-heading h5  {
+	color:#fff;
+	font-weight:500;
+	font-size:14px;
+}
+.sidebar_right .Occupied_box .panel-body {
+		font-size:18px;
+		color:#d18b05;
+		font-weight:600;
+}
+
+.sidebar_right .free_box .panel-heading {
+	background:#3e9212;
+}
+.sidebar_right .free_box .panel-heading h5  {
+	color:#fff;
+	font-weight:500;
+	font-size:14px;
+}
+
+.sidebar_right .free_box .panel-body {
+		font-size:18px;
+		color:#3e9212;
+		font-weight:600;
+}
+
+.blink {
+	-webkit-animation: blink .75s linear infinite;
+	-moz-animation: blink .75s linear infinite;
+	-ms-animation: blink .75s linear infinite;
+	-o-animation: blink .75s linear infinite;
+		animation: blink .75s linear infinite;
+}
+@-webkit-keyframes blink {
+	0% { opacity: 1; }
+	50% { opacity: 1; }
+	50.01% { opacity: 0; }
+	100% { opacity: 0; }
+}
+@-moz-keyframes blink {
+	0% { opacity: 1; }
+	50% { opacity: 1; }
+	50.01% { opacity: 0; }
+	100% { opacity: 0; }
+}
+@-ms-keyframes blink {
+	0% { opacity: 1; }
+	50% { opacity: 1; }
+	50.01% { opacity: 0; }
+	100% { opacity: 0; }
+}
+@-o-keyframes blink {
+	0% { opacity: 1; }
+	50% { opacity: 1; }
+	50.01% { opacity: 0; }
+	100% { opacity: 0; }
+}
+@keyframes blink {
+	0% { opacity: 1; }
+	50% { opacity: 1; }
+	50.01% { opacity: 0; }
+	100% { opacity: 0; }
+}
+/* @end */
+
+.k-nav-current > .k-link span + span {
+	max-width: 200px;
+	display: inline-block;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	vertical-align: top;
+}
+
+#team-schedule {
+	height: 43px;
+	position: relative;
+}
+
+#people {
+	position: absolute;
+	left: 0;
+}
+#alex {
+	position: absolute;
+	left: 4px;
+	top: 81px;
+}
+#bob {
+	position: absolute;
+	left: 119px;
+	top: 81px;
+}
+#charlie {
+	position: absolute;
+	left: 234px;
+	top: 81px;
 }

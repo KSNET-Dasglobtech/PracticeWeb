@@ -11,7 +11,7 @@ namespace PracticeWeb.DB
 {
     using System;
     
-    public partial class GetAppointments_Result
+    public partial class AppointmentDetail
     {
         public long AppointmentID { get; set; }
         public Nullable<long> PatNum { get; set; }
@@ -20,13 +20,13 @@ namespace PracticeWeb.DB
         public Nullable<int> OperatoryID { get; set; }
         public string OperatoryName { get; set; }
         public Nullable<System.DateTime> StartTime { get; set; }
+        public string StartTimezone { get; set; }
+        public string EndTimezone { get; set; }
         public Nullable<System.DateTime> EndTime { get; set; }
         public Nullable<bool> IsAllDay { get; set; }
         public string Description { get; set; }
         public int DoctorID { get; set; }
         public string DoctorName { get; set; }
         public string KeyColor { get; set; }
-        public string StartTimezone { get; set; }
-        public string EndTimezone { get; set; }
     }
 }

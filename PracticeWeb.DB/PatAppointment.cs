@@ -21,8 +21,10 @@ namespace PracticeWeb.DB
         public Nullable<System.DateTime> EndTime { get; set; }
         public Nullable<bool> IsAllDay { get; set; }
         public string Description { get; set; }
-        public Nullable<int> DoctorId { get; set; }
+        public Nullable<int> DoctorID { get; set; }
     
         public virtual Patient Patient { get; set; }
+        public virtual Doctor Doctor { get; set; }
+        public virtual Operatory Operatory { get; set; }
     }
 }
