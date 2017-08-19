@@ -419,10 +419,6 @@
           <Property Type="String" Name="Zip" Nullable="true" MaxLength="150" />
           <Property Type="String" Name="HmPhone" Nullable="true" MaxLength="45" />
         </ComplexType>
-        <ComplexType Name="PatientShortDetail">
-          <Property Type="Int64" Name="PatNum" Nullable="false" />
-          <Property Type="String" Name="Name" Nullable="true" MaxLength="301" />
-        </ComplexType>
         <EntityType Name="PatAppointment">
           <Key>
             <PropertyRef Name="AppointmentID" />
@@ -509,6 +505,10 @@
           <Property Type="Int32" Name="DoctorID" Nullable="false" />
           <Property Type="String" Name="DoctorName" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="KeyColor" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="PatientShortDetail">
+          <Property Type="Int64" Name="PatNum" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="301" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -708,7 +708,7 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetPatientList" FunctionName="DBModel.Store.GetPatientList">
-          <ResultMapping>
+            <ResultMapping>
               <ComplexTypeMapping TypeName="DBModel.PatientShortDetail">
                 <ScalarProperty Name="PatNum" ColumnName="PatNum" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
