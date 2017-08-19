@@ -29,6 +29,7 @@ namespace PracticeWeb.DB
     
         public virtual DbSet<Appointment> Appointments { get; set; }
         public virtual DbSet<Patient> Patients { get; set; }
+        public virtual DbSet<PatAppointment> PatAppointments { get; set; }
     
         public virtual ObjectResult<GetAllAppointments_Result> GetAllAppointments()
         {
@@ -61,6 +62,11 @@ namespace PracticeWeb.DB
                 new ObjectParameter("patNum", typeof(long));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetPatientById_Result>("GetPatientById", patNumParameter);
+        }
+    
+        public virtual ObjectResult<GetAppointments_Result> GetAppointments()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAppointments_Result>("GetAppointments");
         }
     }
 }

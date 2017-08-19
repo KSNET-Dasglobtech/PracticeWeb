@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace PracticeWeb.UI.Models
 {
@@ -34,6 +35,8 @@ namespace PracticeWeb.UI.Models
         [Display(Name = "Last Name")]
         [Required(ErrorMessage = "Please enter last name.")]
         public string LName { get; set; }
+
+        [Display(Name = "Middle Name")]
         public string MiddleI { get; set; }
         public string Suffix { get; set; }
         public string Greeting { get; set; }
@@ -57,8 +60,14 @@ namespace PracticeWeb.UI.Models
         public string City { get; set; }
         [Display(Name = "State")]
         public string State { get; set; }
-        [Display(Name = "Pin Code")]
+        [Display(Name = "Postal Code")]
         public string Zip { get; set; }
+        [AllowHtml]
+        [Display(Name = "Email Address")]
+        [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "Invalid Email Address")]
+
+        public string Email { get; set; }
+
         public string Orthodontist { get; set; }
         public string Location { get; set; }
         [Display(Name = "Contact Info")]
@@ -214,6 +223,7 @@ namespace PracticeWeb.UI.Models
                 patient.MiddleI = this.MiddleI;
                 patient.Gender = this.Gender;
                 patient.Birthdate = this.BirthDate;
+                patient.Email = this.Email;
                 patient.Address = this.Address;
                 patient.City = this.City;
                 patient.State = this.State;

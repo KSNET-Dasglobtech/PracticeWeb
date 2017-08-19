@@ -38,6 +38,19 @@
           <Property Name="ColorOverride" Type="int" Nullable="false" />
           <Property Name="AppointmentTypeNum" Type="bigint" Nullable="false" />
         </EntityType>
+        <EntityType Name="PatAppointment">
+          <Key>
+            <PropertyRef Name="AppointmentID" />
+          </Key>
+          <Property Name="AppointmentID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PatNum" Type="bigint" />
+          <Property Name="OperatoryID" Type="int" />
+          <Property Name="StartTime" Type="datetime" />
+          <Property Name="EndTime" Type="datetime" />
+          <Property Name="IsAllDay" Type="bit" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" />
+          <Property Name="DoctorId" Type="int" />
+        </EntityType>
         <EntityType Name="Patient">
           <Key>
             <PropertyRef Name="PatNum" />
@@ -123,18 +136,36 @@
           <Property Name="SecDateEntry" Type="datetime" Nullable="false" />
           <Property Name="HasSuperBilling" Type="smallint" Nullable="false" />
         </EntityType>
+        <Association Name="FK_PatAppointment_Patient">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="0..1" />
+          <End Role="PatAppointment" Type="Self.PatAppointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="PatNum" />
+            </Principal>
+            <Dependent Role="PatAppointment">
+              <PropertyRef Name="PatNum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="DeletePatient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="patNum" Type="bigint" Mode="In" />
         </Function>
         <Function Name="GetAllAppointments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetAllPatients" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAppointments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetPatientById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="patNum" Type="bigint" Mode="In" />
         </Function>
         <Function Name="GetPatients" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="DBModelStoreContainer">
           <EntitySet Name="Appointment" EntityType="Self.Appointment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PatAppointment" EntityType="Self.PatAppointment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_PatAppointment_Patient" Association="Self.FK_PatAppointment_Patient">
+            <End Role="Patient" EntitySet="Patient" />
+            <End Role="PatAppointment" EntitySet="PatAppointment" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -257,6 +288,7 @@
           <Property Name="SecUserNumEntry" Type="Int64" Nullable="false" />
           <Property Name="SecDateEntry" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="HasSuperBilling" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="PatAppointments" Relationship="DBModel.FK_PatAppointment_Patient" FromRole="Patient" ToRole="PatAppointment" />
         </EntityType>
         <EntityContainer Name="DBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Appointments" EntityType="Self.Appointment" />
@@ -268,8 +300,14 @@
           <Parameter Name="patNum" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="GetPatientById" ReturnType="Collection(DBModel.GetPatientById_Result)">
-            <Parameter Name="patNum" Mode="In" Type="Int64" />
+          <Parameter Name="patNum" Mode="In" Type="Int64" />
           </FunctionImport>
+          <FunctionImport Name="GetAppointments" ReturnType="Collection(DBModel.GetAppointments_Result)" />
+          <EntitySet Name="PatAppointments" EntityType="DBModel.PatAppointment" />
+          <AssociationSet Name="FK_PatAppointment_Patient" Association="DBModel.FK_PatAppointment_Patient">
+            <End Role="Patient" EntitySet="Patients" />
+            <End Role="PatAppointment" EntitySet="PatAppointments" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="GetAllAppointments_Result">
           <Property Type="Int64" Name="AppointmentID" Nullable="false" />
@@ -315,6 +353,49 @@
           <Property Type="String" Name="Zip" Nullable="true" MaxLength="150" />
           <Property Type="String" Name="HmPhone" Nullable="true" MaxLength="45" />
         </ComplexType>
+        <ComplexType Name="GetAppointments_Result">
+          <Property Type="Int64" Name="AppointmentID" Nullable="false" />
+          <Property Type="Int64" Name="PatNum" Nullable="true" />
+          <Property Type="String" Name="PatName" Nullable="true" MaxLength="301" />
+          <Property Type="DateTime" Name="PatBirthdate" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="OperatoryID" Nullable="true" />
+          <Property Type="String" Name="OperatoryName" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="StartTime" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="EndTime" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="IsAllDay" Nullable="true" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="DoctorID" Nullable="false" />
+          <Property Type="String" Name="DoctorName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="KeyColor" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="StartTimezone" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="EndTimezone" Nullable="false" MaxLength="1" />
+        </ComplexType>
+        <EntityType Name="PatAppointment">
+          <Key>
+            <PropertyRef Name="AppointmentID" />
+          </Key>
+          <Property Name="AppointmentID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PatNum" Type="Int64" />
+          <Property Name="OperatoryID" Type="Int32" />
+          <Property Name="StartTime" Type="DateTime" Precision="3" />
+          <Property Name="EndTime" Type="DateTime" Precision="3" />
+          <Property Name="IsAllDay" Type="Boolean" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DoctorId" Type="Int32" />
+          <NavigationProperty Name="Patient" Relationship="DBModel.FK_PatAppointment_Patient" FromRole="PatAppointment" ToRole="Patient" />
+        </EntityType>
+        <Association Name="FK_PatAppointment_Patient">
+          <End Type="DBModel.Patient" Role="Patient" Multiplicity="0..1" />
+          <End Type="DBModel.PatAppointment" Role="PatAppointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="PatNum" />
+            </Principal>
+            <Dependent Role="PatAppointment">
+              <PropertyRef Name="PatNum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -491,6 +572,41 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAppointments" FunctionName="DBModel.Store.GetAppointments">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBModel.GetAppointments_Result">
+                <ScalarProperty Name="AppointmentID" ColumnName="AppointmentID" />
+                <ScalarProperty Name="PatNum" ColumnName="PatNum" />
+                <ScalarProperty Name="PatName" ColumnName="PatName" />
+                <ScalarProperty Name="PatBirthdate" ColumnName="PatBirthdate" />
+                <ScalarProperty Name="OperatoryID" ColumnName="OperatoryID" />
+                <ScalarProperty Name="OperatoryName" ColumnName="OperatoryName" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="IsAllDay" ColumnName="IsAllDay" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
+                <ScalarProperty Name="DoctorName" ColumnName="DoctorName" />
+                <ScalarProperty Name="KeyColor" ColumnName="KeyColor" />
+                <ScalarProperty Name="StartTimezone" ColumnName="StartTimezone" />
+                <ScalarProperty Name="EndTimezone" ColumnName="EndTimezone" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="PatAppointments">
+            <EntityTypeMapping TypeName="DBModel.PatAppointment">
+              <MappingFragment StoreEntitySet="PatAppointment">
+                <ScalarProperty Name="DoctorId" ColumnName="DoctorId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsAllDay" ColumnName="IsAllDay" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="OperatoryID" ColumnName="OperatoryID" />
+                <ScalarProperty Name="PatNum" ColumnName="PatNum" />
+                <ScalarProperty Name="AppointmentID" ColumnName="AppointmentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

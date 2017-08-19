@@ -14,6 +14,11 @@ namespace PracticeWeb.DB
     
     public partial class Patient
     {
+        public Patient()
+        {
+            this.PatAppointments = new HashSet<PatAppointment>();
+        }
+    
         public long PatNum { get; set; }
         public string LName { get; set; }
         public string FName { get; set; }
@@ -94,5 +99,7 @@ namespace PracticeWeb.DB
         public long SecUserNumEntry { get; set; }
         public System.DateTime SecDateEntry { get; set; }
         public short HasSuperBilling { get; set; }
+    
+        public virtual ICollection<PatAppointment> PatAppointments { get; set; }
     }
 }

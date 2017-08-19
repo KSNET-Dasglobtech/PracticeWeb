@@ -7,6 +7,8 @@
       <Diagram DiagramId="d878f05027b54367a01fc0ebbd631dfb" Name="Diagram1" ZoomLevel="89">
         <EntityTypeShape EntityType="DBModel.Appointment" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DBModel.Patient" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.PatAppointment" Width="1.5" PointX="5" PointY="7.625" />
+        <AssociationConnector Association="DBModel.FK_PatAppointment_Patient" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

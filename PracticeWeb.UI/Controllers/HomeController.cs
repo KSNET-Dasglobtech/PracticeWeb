@@ -12,5 +12,10 @@ namespace PracticeWeb.UI.Controllers
         {
             return View();
         }
+
+        public ActionResult Meetings_Read()
+        {
+            return Json(true);
+        }
     }
 }

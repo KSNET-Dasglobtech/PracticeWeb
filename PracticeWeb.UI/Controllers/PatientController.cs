@@ -40,7 +40,7 @@ namespace PracticeWeb.UI.Controllers
 
         [HttpPost]
         public ActionResult SavePetient(string patNum,string title, string firstName, string lastName,
-            string middleName, string gender, string birthdate, string address, string city, string state, string pinCode, string phone)
+            string middleName, string gender, string email, string birthdate, string address, string city, string state, string pinCode, string phone)
         {
             if (string.IsNullOrEmpty(patNum))
                 patNum = "0";
@@ -56,6 +56,7 @@ namespace PracticeWeb.UI.Controllers
                 patient.BirthDate = Convert.ToDateTime(birthdate);
             else
                 patient.BirthDate = DateTime.Now;
+            patient.Email = email;
             patient.Address = address;
             patient.City = city;
             patient.State = state;

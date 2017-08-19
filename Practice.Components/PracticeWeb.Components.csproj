@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppointmentEntity.cs" />
     <Compile Include="ComponentBase.cs" />
     <Compile Include="DBContextFactory.cs" />
     <Compile Include="PatientEntity.cs" />
