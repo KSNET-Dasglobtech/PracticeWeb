@@ -103,5 +103,15 @@ namespace PracticeWeb.Components
             return db.GetPatients().ToList();
             
         }
+
+        /// <summary>
+        /// Method to get all Patient
+        /// </summary>
+        /// <param name="Lead"></param>
+        public List<PatientShortDetail> GetPatientShortDetailList()
+        {
+            return db.GetPatientList().ToList();
+
+        }
     }
 }

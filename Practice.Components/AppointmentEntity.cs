@@ -10,6 +10,8 @@ namespace PracticeWeb.Components
 {
     public class AppointmentEntity : ComponentBase
     {
+        #region Appointment Function
+
         /// <summary>
         ///  Method to create instance of PatAppointment
         /// </summary>
@@ -79,9 +81,14 @@ namespace PracticeWeb.Components
         /// </summary>
         /// <param name="companyId"></param>
         /// <param name="leadId"></param>
-        public void DeleteAppointment(long patNum)
+        public void DeleteAppointment(long appointmentId)
         {
-            //db.DeleteAppointment(patNum);
+            PatAppointment patAppointment = db.PatAppointments.Where(x=>x.AppointmentID == appointmentId).FirstOrDefault();
+            if (patAppointment != null)
+            {
+                db.PatAppointments.Remove(patAppointment);
+                db.SaveChanges();
+            }
         }
 
         /// <summary>
@@ -95,13 +102,53 @@ namespace PracticeWeb.Components
         }
 
         /// <summary>
-        /// Method to get all PatAppointment
+        /// Method to get all PatAppointment Detail
         /// </summary>
         /// <param name="Lead"></param>
-        public List<GetAppointments_Result> GetAppointmentList()
+        public List<AppointmentDetail> GetAppointmentDetailList()
         {
-            return  db.GetAppointments().ToList();           
+            return  db.GetAppointments(null).ToList();
 
         }
+
+        /// <summary>
+        /// Method to get PatAppointment detail by ID
+        /// </summary>
+        /// <param name="Lead"></param>
+        public AppointmentDetail GetAppointmentDetailByID(long appointmentID)
+        {
+            return db.GetAppointments(appointmentID).FirstOrDefault();
+
+        }
+
+        #endregion
+
+        #region Doctor Function
+
+        /// <summary>
+        /// Method to get all Doctor
+        /// </summary>
+        /// <param name="Lead"></param>
+        public List<Doctor> GetAllDoctor()
+        {
+            return db.Doctors.ToList();
+
+        }
+
+        #endregion
+
+        #region Room Function
+
+        /// <summary>
+        /// Method to get all Rooms
+        /// </summary>
+        /// <param name="Lead"></param>
+        public List<Operatory> GetAllRooms()
+        {
+            return db.Operatories.ToList();
+
+        }
+
+        #endregion
     }
 }

@@ -30,6 +30,8 @@ namespace PracticeWeb.DB
         public virtual DbSet<Appointment> Appointments { get; set; }
         public virtual DbSet<Patient> Patients { get; set; }
         public virtual DbSet<PatAppointment> PatAppointments { get; set; }
+        public virtual DbSet<Doctor> Doctors { get; set; }
+        public virtual DbSet<Operatory> Operatories { get; set; }
     
         public virtual ObjectResult<GetAllAppointments_Result> GetAllAppointments()
         {
@@ -64,9 +66,18 @@ namespace PracticeWeb.DB
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetPatientById_Result>("GetPatientById", patNumParameter);
         }
     
-        public virtual ObjectResult<GetAppointments_Result> GetAppointments()
+        public virtual ObjectResult<AppointmentDetail> GetAppointments(Nullable<long> appointmentID)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAppointments_Result>("GetAppointments");
+            var appointmentIDParameter = appointmentID.HasValue ?
+                new ObjectParameter("appointmentID", appointmentID) :
+                new ObjectParameter("appointmentID", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AppointmentDetail>("GetAppointments", appointmentIDParameter);
+        }
+    
+        public virtual ObjectResult<PatientShortDetail> GetPatientList()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PatientShortDetail>("GetPatientList");
         }
     }
 }

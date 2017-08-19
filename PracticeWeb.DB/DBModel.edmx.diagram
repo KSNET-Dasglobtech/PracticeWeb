@@ -9,6 +9,10 @@
         <EntityTypeShape EntityType="DBModel.Patient" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DBModel.PatAppointment" Width="1.5" PointX="5" PointY="7.625" />
         <AssociationConnector Association="DBModel.FK_PatAppointment_Patient" />
+        <EntityTypeShape EntityType="DBModel.Doctor" Width="1.5" PointX="2.75" PointY="19.25" />
+        <EntityTypeShape EntityType="DBModel.Operatory" Width="1.5" PointX="5.375" PointY="0.875" />
+        <AssociationConnector Association="DBModel.FK_PatAppointment_Doctor" />
+        <AssociationConnector Association="DBModel.FK_PatAppointment_Operatory" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
