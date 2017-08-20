@@ -331,7 +331,21 @@
             editable: {
                 template: $("#customEditorTemplate").html()
             },
+            dataBound: function () {
+                
+                var view = this.view();
+                var events = this.dataSource.view();
+                var eventElement;
+                var event;
 
+                for (var idx = 0, length = events.length; idx < length; idx++) {
+                    event = events[idx];
+                    //get event element
+                    eventElement = view.element.find("[data-uid=" + event.uid + "]");
+                    //set the backgroud of the element
+                    eventElement.css("background-color", event.KeyColor);
+                }
+            },
             dataSource: {
                 batch: true,
                 transport: {
