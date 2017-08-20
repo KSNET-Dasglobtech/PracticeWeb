@@ -121,6 +121,17 @@ namespace PracticeWeb.Components
 
         }
 
+
+        /// <summary>
+        /// Method to get Booked Appointment detail by Patient search
+        /// </summary>
+        /// <param name="Lead"></param>
+        public List<BookedAppointmentDetail> GetBookedAppointmentDetailByPatient(string patientSearch)
+        {
+            return db.GetAppointmentsByPatientSearch(patientSearch).ToList();
+
+        }
+
         #endregion
 
         #region Doctor Function

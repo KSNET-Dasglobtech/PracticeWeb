@@ -24,6 +24,7 @@ namespace PracticeWeb.UI.Models
         #region Field
 
         public List<AppointmentDetail> AppointmentDetailList { get; set; }
+        public List<BookedAppointmentDetail> BookedAppointmentDetailList { get; set; }
 
         public List<PatientShortDetail> PatientList { get; set; }
         public List<Operatory> RoomList { get; set; }
@@ -92,6 +93,23 @@ namespace PracticeWeb.UI.Models
             {
                 ProcessException("An error occurred while loading all PatAppointment detail, error: " + ex.Message, ex);
                 return new Result("An error occurred while loading all PatAppointment detail");
+            }
+            return result;
+        }
+
+        public Result LoadBookedAppointment(string patientSearch)
+        {
+            LogInfo("Started load Booked appointment with patientSearch: " + patientSearch);
+            Result result = new Result();
+            try
+            {
+                AppointmentEntity appointmentEntity = new AppointmentEntity();
+                BookedAppointmentDetailList = appointmentEntity.GetBookedAppointmentDetailByPatient(patientSearch);
+            }
+            catch (Exception ex)
+            {
+                ProcessException("An error occurred while loading Booked Appointment detail by patient search, error: " + ex.Message, ex);
+                return new Result("An error occurred while loading Booked Appointment detail by patient search");
             }
             return result;
         }
