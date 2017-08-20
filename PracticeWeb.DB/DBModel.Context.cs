@@ -79,5 +79,14 @@ namespace PracticeWeb.DB
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PatientShortDetail>("GetPatientList");
         }
+    
+        public virtual ObjectResult<BookedAppointmentDetail> GetAppointmentsByPatientSearch(string patientSearch)
+        {
+            var patientSearchParameter = patientSearch != null ?
+                new ObjectParameter("patientSearch", patientSearch) :
+                new ObjectParameter("patientSearch", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BookedAppointmentDetail>("GetAppointmentsByPatientSearch", patientSearchParameter);
+        }
     }
 }

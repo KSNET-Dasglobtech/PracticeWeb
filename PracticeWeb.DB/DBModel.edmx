@@ -196,6 +196,9 @@
         <Function Name="GetAppointments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="appointmentID" Type="bigint" Mode="In" />
         </Function>
+        <Function Name="GetAppointmentsByPatientSearch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="patientSearch" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="GetPatientById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="patNum" Type="bigint" Mode="In" />
         </Function>
@@ -356,7 +359,7 @@
           <Parameter Name="patNum" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="GetAppointments" ReturnType="Collection(DBModel.AppointmentDetail)" >
-            <Parameter Name="appointmentID" Mode="In" Type="Int64" />
+          <Parameter Name="appointmentID" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="GetPatientList" ReturnType="Collection(DBModel.PatientShortDetail)" />
           <EntitySet Name="PatAppointments" EntityType="DBModel.PatAppointment" />
@@ -374,6 +377,9 @@
             <End Role="Operatory" EntitySet="Operatories" />
             <End Role="PatAppointment" EntitySet="PatAppointments" />
           </AssociationSet>
+          <FunctionImport Name="GetAppointmentsByPatientSearch" ReturnType="Collection(DBModel.BookedAppointmentDetail)">
+            <Parameter Name="patientSearch" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetAllAppointments_Result">
           <Property Type="Int64" Name="AppointmentID" Nullable="false" />
@@ -510,6 +516,13 @@
         <ComplexType Name="PatientShortDetail">
           <Property Type="Int64" Name="PatNum" Nullable="false" />
           <Property Type="String" Name="Name" Nullable="true" MaxLength="301" />
+        </ComplexType>
+        <ComplexType Name="BookedAppointmentDetail">
+          <Property Type="String" Name="PatName" Nullable="true" MaxLength="301" />
+          <Property Type="String" Name="OperatoryName" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="StartTime" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="EndTime" Nullable="true" Precision="23" />
+          <Property Type="String" Name="DoctorName" Nullable="true" MaxLength="100" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -749,6 +762,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetAppointmentsByPatientSearch" FunctionName="DBModel.Store.GetAppointmentsByPatientSearch">
+          <ResultMapping>
+              <ComplexTypeMapping TypeName="DBModel.BookedAppointmentDetail">
+                <ScalarProperty Name="PatName" ColumnName="PatName" />
+                <ScalarProperty Name="OperatoryName" ColumnName="OperatoryName" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="DoctorName" ColumnName="DoctorName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

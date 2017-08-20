@@ -6,200 +6,168 @@
     ViewBag.PageName = "schedule";
 }
 
-<div class="content-wrapper">
-    <!-- Page header -->
-    
-    <!-- /page header -->
-    <!-- Content area -->
-    <div class="content">
-        <div class="row">
-            <div class="col-md-12 col-sm-12">
+<!-- Page header -->
+<div class="page-header page-header-default">
+    <div class="page-header-content">
+        <div class="page-title">
+            <h4>
+                <i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Schedule</span>  <!-- Button trigger modal -->
+                <button type="button" class="btn btn_add_patient pull-right" data-toggle="modal" data-target="#model_AddPatient">
+                    <b> Add Patient</b>
+                </button>
+            </h4>
+        </div>
+    </div>
 
-                <div class="panel panel-flat">
-                    <div class="panel-body">
+    <div class="breadcrumb-line">
+        <ul class="breadcrumb">
+            <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
+            <li class="active">Schedule</li>
+        </ul>
 
-                        <div class="content-wrapper">
+        <ul class="breadcrumb-elements">
+            <li><a href="#"> <strong>Waiting:</strong> 0 </a></li>
+            <li><a href="#"> <strong>Seated:</strong> 0 </a></li>
+            <li><a href="#"> <strong>Ready for Checkout:</strong> 0 </a></li>
+            <li><a href="#"> <strong>Dismissed:</strong> 0 </a></li>
+        </ul>
+    </div>
+</div>
+<!-- /page header -->
+<!-- Content area -->
+<div class="content">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
 
-                            <!-- Page header -->
-                            <div class="page-header page-header-default">
-                                <div class="page-header-content">
-                                    <div class="page-title">
-                                        <h4>
-                                            <i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Schedule</span>  <!-- Button trigger modal -->
-                                            <button type="button" class="btn btn_add_patient pull-right" data-toggle="modal"  data-backdrop="static" data-keyboard="false" data-target="#model_AddPatient">
-                                                <b> Add Patient</b>
+            <div class="panel panel-flat">
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-10 col-sm-9 col-xs-12">
+                            <div id="team-schedule">
+                                <div id="people">
+                                    <div class="navbar">
+
+                                        <div class="navbar-header">
+                                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                                                <span class="sr-only">Toggle navigation</span>
+                                                <span class="icon-bar"></span>
+                                                <span class="icon-bar"></span>
+                                                <span class="icon-bar"></span>
                                             </button>
-                                        </h4>
-                                    </div>
-                                </div>
-
-                                <div class="breadcrumb-line">
-                                    <ul class="breadcrumb">
-                                        <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
-                                        <li class="active">Schedule</li>
-                                    </ul>
-
-                                    <ul class="breadcrumb-elements">
-                                        <li><a href="#"> <strong>Waiting:</strong> 0 </a></li>
-                                        <li><a href="#"> <strong>Seated:</strong> 0 </a></li>
-                                        <li><a href="#"> <strong>Ready for Checkout:</strong> 0 </a></li>
-                                        <li><a href="#"> <strong>Dismissed:</strong> 0 </a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!-- /page header -->
-                            <!-- Content area -->
-                            <div class="content">
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12">
-
-                                        <div class="panel panel-flat">
-                                            <div class="panel-body">
-
-                                                <div class="row">
-                                                    <div class="col-md-10 col-sm-9 col-xs-12">
-                                                        <div id="team-schedule">
-                                                            <div id="people">
-                                                                <div class="navbar">
-
-                                                                    <div class="navbar-header">
-                                                                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                                                                            <span class="sr-only">Toggle navigation</span>
-                                                                            <span class="icon-bar"></span>
-                                                                            <span class="icon-bar"></span>
-                                                                            <span class="icon-bar"></span>
-                                                                        </button>
-                                                                    </div>
-                                                                    <div id="navbar" class="navbar-collapse collapse doctor-list" aria-expanded="false" style="height: 1px;">
-                                                                        <ul class="nav navbar-nav">
-                                                                            <li class="doctor link-all active"><a href="#">All</a></li>
-                                                                            <li class="doctor link1" data-value="1"><a href="#">Casa Grande</a></li>
-                                                                            <li class="doctor link2" data-value="2"><a href="#">Chandler</a></li>
-                                                                            <li class="doctor link3" data-value="3"><a href="#contact">Phoenix</a></li>
-                                                                            <li class="doctor link4" data-value="4"><a href="#">Tatum</a></li>
-                                                                        </ul>
-                                                                    </div><!--/.nav-collapse -->
-
-                                                                </div>
-
-                                                            </div>
-
-
-                                                            <div class="search_block">
-                                                                <input type="text" class="search_feild" placeholder="Search here..." />
-                                                                <input type="submit" value="search" class="search_btn" />
-                                                            </div>
-                                                        </div>
-                                                        <div id="scheduler"></div>
-                                                    </div>
-                                                    <div class="col-md-2 col-sm-3 col-xs-12 sidebar_right">
-                                                        <div class="panel text-center Occupied_box">
-                                                            <div class="panel-heading">
-                                                                <h5 class="panel-title">Consult</h5>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                Occupied
-                                                            </div>
-                                                        </div>
-                                                        <!-- end panel -->
-
-                                                        <div class="panel text-center Occupied_box">
-                                                            <div class="panel-heading">
-                                                                <h5 class="panel-title">Chair 1</h5>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                Occupied
-                                                            </div>
-                                                        </div>
-                                                        <!-- end panel -->
-
-                                                        <div class="panel text-center free_box">
-                                                            <div class="panel-heading">
-                                                                <h5 class="panel-title">Chair 2</h5>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <span class="blink">Free</span>
-                                                            </div>
-                                                        </div>
-                                                        <!-- end panel -->
-
-                                                        <div class="panel text-center Occupied_box">
-                                                            <div class="panel-heading">
-                                                                <h5 class="panel-title">Chair 3</h5>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                Occupied
-                                                            </div>
-                                                        </div>
-                                                        <!-- end panel -->
-
-                                                        <div class="panel text-center Occupied_box">
-                                                            <div class="panel-heading">
-                                                                <h5 class="panel-title">Chair 4</h5>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                Occupied
-                                                            </div>
-                                                        </div>
-                                                        <!-- end panel -->
-
-                                                        <div class="panel text-center Occupied_box">
-                                                            <div class="panel-heading">
-                                                                <h5 class="panel-title">Chair 5</h5>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                Occupied
-                                                            </div>
-                                                        </div>
-                                                        <!-- end panel -->
-
-                                                        <div class="panel text-center Occupied_box">
-                                                            <div class="panel-heading">
-                                                                <h5 class="panel-title">Chair 6</h5>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                Occupied
-                                                            </div>
-                                                        </div>
-                                                        <!-- end panel -->
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- end panel-body -->
-
                                         </div>
-                                        <!-- end panel -->
+                                        <div id="navbar" class="navbar-collapse collapse doctor-list" aria-expanded="false" style="height: 1px;">
+                                            <ul class="nav navbar-nav">
+                                                <li class="doctor link-all active"><a href="#">All</a></li>
+                                                <li class="doctor link1" data-value="1"><a href="#">Casa Grande</a></li>
+                                                <li class="doctor link2" data-value="2"><a href="#">Chandler</a></li>
+                                                <li class="doctor link3" data-value="3"><a href="#contact">Phoenix</a></li>
+                                                <li class="doctor link4" data-value="4"><a href="#">Tatum</a></li>
+                                            </ul>
+                                        </div><!--/.nav-collapse -->
 
                                     </div>
-                                </div>
-                                <!-- Footer -->
-                                <div class="footer text-muted">
-                                    &copy; 2017. PW-Admin
-                                </div>
-                                <!-- /footer -->
 
+                                </div>
+
+
+                                <div class="search_block">
+                                    <input type="text" id="searchField" class="search_feild" placeholder="Search here..." />
+                                    <input type="submit" value="search" class="search_btn" />
+                                </div>
                             </div>
-                            <!-- /content area -->
-
+                            <div id="scheduler"></div>
                         </div>
+                        <div class="col-md-2 col-sm-3 col-xs-12 sidebar_right">
+                            <div class="panel text-center Occupied_box">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title">Consult</h5>
+                                </div>
+                                <div class="panel-body">
+                                    Occupied
+                                </div>
+                            </div>
+                            <!-- end panel -->
 
+                            <div class="panel text-center Occupied_box">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title">Chair 1</h5>
+                                </div>
+                                <div class="panel-body">
+                                    Occupied
+                                </div>
+                            </div>
+                            <!-- end panel -->
+
+                            <div class="panel text-center free_box">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title">Chair 2</h5>
+                                </div>
+                                <div class="panel-body">
+                                    <span class="blink">Free</span>
+                                </div>
+                            </div>
+                            <!-- end panel -->
+
+                            <div class="panel text-center Occupied_box">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title">Chair 3</h5>
+                                </div>
+                                <div class="panel-body">
+                                    Occupied
+                                </div>
+                            </div>
+                            <!-- end panel -->
+
+                            <div class="panel text-center Occupied_box">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title">Chair 4</h5>
+                                </div>
+                                <div class="panel-body">
+                                    Occupied
+                                </div>
+                            </div>
+                            <!-- end panel -->
+
+                            <div class="panel text-center Occupied_box">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title">Chair 5</h5>
+                                </div>
+                                <div class="panel-body">
+                                    Occupied
+                                </div>
+                            </div>
+                            <!-- end panel -->
+
+                            <div class="panel text-center Occupied_box">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title">Chair 6</h5>
+                                </div>
+                                <div class="panel-body">
+                                    Occupied
+                                </div>
+                            </div>
+                            <!-- end panel -->
+                        </div>
                     </div>
-                    <!-- end panel-body -->
-
                 </div>
-                <!-- end panel -->
+                <!-- end panel-body -->
 
             </div>
-        </div>
-        <!-- Footer -->
-        <div class="footer text-muted">
-            &copy; 2017. PW-Admin
-        </div>
-        <!-- /footer -->
+            <!-- end panel -->
 
+        </div>
     </div>
-    <!-- /content area -->
+    <!-- Footer -->
+    <div class="footer text-muted">
+        &copy; 2017. PW-Admin
+    </div>
+    <!-- /footer -->
+
 </div>
+<!-- /content area -->
+
+
 
 <script id="customEditorTemplate" type="text/x-kendo-template">
     <div class="k-edit-label"><label for="title">Patient</label></div>
@@ -282,17 +250,14 @@
             $(this).addClass("active");
 
             var selectedDoctors = [];
-            if ($(this).hasClass("link-all"))
-            {
+            if ($(this).hasClass("link-all")) {
                 $(".doctor-list li.doctor").each(function () {
-                    if (!$(this).hasClass("link-all"))
-                    {
+                    if (!$(this).hasClass("link-all")) {
                         selectedDoctors.push(parseInt($(this).data("value")));
                     }
                 })
             }
-            else
-            {
+            else {
                 selectedDoctors.push(parseInt($(this).data("value")));
             }
             var scheduler = $("#scheduler").data("kendoScheduler");
@@ -303,7 +268,7 @@
                 }
             });
         });
-        
+
 
         var roomListJson = JSON.parse('@Html.Raw(Model.RoomListJson)');
 
@@ -323,16 +288,18 @@
                 { type: "agenda", title: "List View" }
             ],
             messages: {
+                event: "Appoinment",
                 editor: {
-                    editorTitle: "Appointment"
+                    editorTitle: "Appointment",
                 }
+
             },
             timezone: "Etc/UTC",
             editable: {
                 template: $("#customEditorTemplate").html()
             },
             dataBound: function () {
-                
+
                 var view = this.view();
                 var events = this.dataSource.view();
                 var eventElement;
@@ -343,7 +310,13 @@
                     //get event element
                     eventElement = view.element.find("[data-uid=" + event.uid + "]");
                     //set the backgroud of the element
-                    eventElement.css("background-color", event.KeyColor);
+                    if (view.options.name == "agenda") {
+                        eventElement.find(".k-scheduler-mark").css("background-color", event.KeyColor);
+                        //debugger
+                    }
+                    else {
+                        eventElement.css("background-color", event.KeyColor);
+                    }
                 }
             },
             dataSource: {
@@ -413,10 +386,100 @@
 
         var scheduler = $("#scheduler").data("kendoScheduler");
 
+        var patientSearchTextRequiredDialog = $("#patientSearchTextRequiredDialog");
+        patientSearchTextRequiredDialog.kendoDialog({
+            width: "400px",
+            title: "Booked Appointment",
+            closable: false,
+            visible: false,
+            modal: true,
+            content: "Please enter patient name to view patient booked appointment",
+            actions: [
+                { text: 'Ok' }
+            ]
+        });
 
         $(".search_btn").click(function () {
-            scheduler.addEvent({});
-            $(".k-widget.k-window").addClass("bookedAppointement");
+            if ($("#searchField").val().trim().length == 0)
+            {
+                patientSearchTextRequiredDialog.data("kendoDialog").open();
+            }
+            else
+            {
+                $('#model_PatientBookedAppoinment').modal('show');
+            }
+
+
+            setTimeout(function () {
+                if ($("#searchField").val().length > 0) {
+                    $("#bookedApppoinmentGrid").kendoGrid({
+                        dataSource: {
+                            //type: "json",
+                            transport: {
+                                read: "@Url.Action("BookedAppointments", "Appointment")" + "?patientSearch=" + $("#searchField").val()
+                        },
+                        pageSize: 20
+                    },
+                        height: 550,
+                    groupable: false,
+                    sortable: true,
+                    //filterable: true,
+
+                    filterable: {
+                        extra: false, //do not show extra filters
+                        operators: { // redefine the string operators
+                            string: {
+                                    contains: "Contains",
+                                    startswith: "Starts With",
+                                    eq: "Is Equal To"
+                            },
+                            }
+                    },
+
+                    pageable: {
+                        refresh: true,
+                        pageSizes: true,
+                        buttonCount: 5
+                    },
+                    columns: [{
+                        field: "PatName",
+                        title: "Patient Name",
+                        //width: 240,
+                        filter: true,
+                    }, {
+                        field: "OperatoryName",
+                        title: "Room",
+                        //width: 240,
+                        filter: true,
+                    }, {
+                        field: "StartTime",
+                        title: "Start",
+                        template: "#= kendo.toString(kendo.parseDate(StartTime, 'MM/dd/yyyy hh:mm tt'), 'yyyy/MM/dd hh:mm tt') #",
+                        format: "{0:d}",
+                        parseFormats: "{0:yyyy/MM/dd}",
+                        filterable: {
+                            ui: "datepicker",
+                            format: "yyyy/MM/dd"
+                        }
+
+                    }, {
+                        field: "EndTime",
+                        title: "End",
+                        template: "#= kendo.toString(kendo.parseDate(EndTime, 'MM/dd/yyyy hh:mm tt'), 'yyyy/MM/dd hh:mm tt') #",
+                        format: "{0:d}",
+                        parseFormats: "{0:yyyy/MM/dd}",
+                        filterable: {
+                            ui: "datepicker",
+                            format: "yyyy/MM/dd"
+                        }
+                    }, {
+                        field: "DoctorName",
+                        title: "Doctor Name",
+                        filter: true,
+                    }]
+                });
+            }
+            }, 200)
         });
 
         $("#orientation").kendoDropDownList({
@@ -435,10 +498,11 @@
 <!-- Patient entry page in modal popup-->
 
 <div id="patientRequiredDataMessage"></div>
+<div id="patientSearchTextRequiredDialog"></div>
 
 <script>
     $(document).ready(function () {
-        
+
         var patientRequiredDataMessageDialog = $("#patientRequiredDataMessage");
         patientRequiredDataMessageDialog.kendoDialog({
             width: "400px",
@@ -466,11 +530,11 @@
         });
 
         function reset() {
-            
+
             if ($("#PatientModel_PatNum").val() != "0" && $("#PatientModel_PatNum").val() != "") {
                 //fillpatientdata($("#PatientModel_PatNum").val());
             }
-            else{
+            else {
                 $("#PatientModel_PatNum").val(0);
                 $("#PatientModel_Title").val('1');
                 $("#PatientModel_FName").val('');
@@ -533,8 +597,7 @@
                 //}
                 //}
             }
-            else
-            {
+            else {
                 patientRequiredDataMessageDialog.data("kendoDialog").open();
                 //alert("All required fields (marked with *) should not be blank!");
                 //$.alert({
@@ -763,3 +826,35 @@
     </div>
     <!-- /Modal; -->
 }
+
+<div class="modal fade" id="model_PatientBookedAppoinment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">
+                        &times;
+                    </span>
+                </button> <h4 class="modal-title" id="myModalLabel">Booked Apppinment</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div id="bookedApppoinmentGrid"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+
+    });
+
+
+</script>
+
+

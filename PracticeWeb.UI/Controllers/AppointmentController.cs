@@ -73,6 +73,13 @@ namespace PracticeWeb.UI.Controllers
             }
             return Json(appointmentDTOList, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult BookedAppointments(string patientSearch)
+        {
+            AppointmentModel model = new AppointmentModel();
+            model.LoadBookedAppointment(patientSearch);
+            return Json(model.BookedAppointmentDetailList, JsonRequestBehavior.AllowGet);
+        }
         
     }
 }
