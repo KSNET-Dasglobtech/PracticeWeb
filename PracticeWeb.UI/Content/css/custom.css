@@ -65,13 +65,18 @@
 #people .navbar .navbar-nav li { background:#fff; color:#000 }
 #people .navbar .navbar-nav li a { color:#000 }
 
-#people .navbar .navbar-nav li a {    background: #fff;   border-bottom: solid 5px #ff6700;    padding: 10px 25px;    padding-left: 25px;    line-height: normal;    margin-left: 0; 
+#people .navbar .navbar-nav li a {    background: #fff;   border-bottom: solid 5px #c5c5c5;    padding: 10px 25px;    padding-left: 25px;    line-height: normal;    margin-left: 0; 
     font-weight: 500;    font-size: 15px;}
+#people .navbar .navbar-nav li.link-all a { border-color: #c5c5c5;}
+#people .navbar .navbar-nav li.link-all.active a { background: rgba(197, 197, 197, 0.5); color:#fff;}
 #people .navbar .navbar-nav li.link1 a { border-color: #ff6700;}
+#people .navbar .navbar-nav li.link1.active a { background: rgba(255, 103, 0, 0.5); color:#fff;}
 #people .navbar .navbar-nav li.link2 a { border-color:#5cae30}
+#people .navbar .navbar-nav li.link2.active a { background: rgba(92, 174, 48, 0.5); color:#fff;}
 #people .navbar .navbar-nav li.link3 a { border-color:#286eb2}
+#people .navbar .navbar-nav li.link3.active a { background: rgba(40, 110, 178, 0.5); color:#fff;}
 #people .navbar .navbar-nav li.link4 a { border-color:#db42e8}
-#people .navbar .navbar-nav li.link3.active a { background:#51a0ed; color:#fff;}
+#people .navbar .navbar-nav li.link4.active a { background: rgba(219, 66, 232, 0.5); color:#fff;}
 
 @media (max-width: 768px) { 
 	#people .navbar-toggle { float:left;}

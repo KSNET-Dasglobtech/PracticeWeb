@@ -407,6 +407,8 @@
     <Content Include="Content\js\core\libraries\bootstrap.min.js" />
     <Content Include="Content\js\core\libraries\jasny_bootstrap.min.js" />
     <Content Include="Content\js\core\libraries\jquery.min.js" />
+    <Content Include="Content\js\core\libraries\jquery.unobtrusive-ajax.js" />
+    <Content Include="Content\js\core\libraries\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Content\js\core\libraries\jquery.validate.js" />
     <Content Include="Content\js\core\libraries\jquery.validate.min.js" />
     <Content Include="Content\js\core\libraries\jquery.validate.unobtrusive.js" />

@@ -70,12 +70,13 @@
                                                                             <span class="icon-bar"></span>
                                                                         </button>
                                                                     </div>
-                                                                    <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
+                                                                    <div id="navbar" class="navbar-collapse collapse doctor-list" aria-expanded="false" style="height: 1px;">
                                                                         <ul class="nav navbar-nav">
-                                                                            <li class="link1"><a href="#">Casa Grande</a></li>
-                                                                            <li class="link2"><a href="#">Chandler</a></li>
-                                                                            <li class="link3 active"><a href="#contact">Phoenix</a></li>
-                                                                            <li class="link4"><a href="#">Tatum</a></li>
+                                                                            <li class="doctor link-all active"><a href="#">All</a></li>
+                                                                            <li class="doctor link1" data-value="1"><a href="#">Casa Grande</a></li>
+                                                                            <li class="doctor link2" data-value="2"><a href="#">Chandler</a></li>
+                                                                            <li class="doctor link3" data-value="3"><a href="#contact">Phoenix</a></li>
+                                                                            <li class="doctor link4" data-value="4"><a href="#">Tatum</a></li>
                                                                         </ul>
                                                                     </div><!--/.nav-collapse -->
 
@@ -206,8 +207,8 @@
         <input type="text" class="k-input k-textbox" name="title" required="required" data-bind="value:title">
     </div>
     <div data-container-for="patient" class="k-edit-field">
-        <select id="patient" data-bind="value:patient" data-role="dropdownlist"
-                data-value-field="value" data-text-field="text">
+        <select id="patient" name="patient" data-bind="value:patient" data-role="dropdownlist"
+                data-value-field="value" data-text-field="text" data-option-label="--Select Patient--" required data-required-msg="Please select Patient">
             @if (Model.PatientList != null && Model.PatientList.Count > 0)
             {
                 foreach (var patient in Model.PatientList)
@@ -216,6 +217,7 @@
                 }
             }
         </select>
+        <span class="k-invalid-msg" data-for="patient"></span>
     </div>
     <div class="k-edit-label">
         <label for="start">Start</label>
@@ -245,8 +247,8 @@
     </div>
     <div class="k-edit-label"><label for="attendees">Room</label></div>
     <div data-container-for="roomId" class="k-edit-field">
-        <select id="roomId" data-bind="value:roomId" data-role="dropdownlist"
-                data-value-field="value" data-text-field="text">
+        <select id="roomId" name="roomId" data-bind="value:roomId" data-role="dropdownlist"
+                data-value-field="value" data-text-field="text" required data-option-label="--Select Room--" data-required-msg="Please select Room">
             @if (Model.RoomList != null && Model.RoomList.Count > 0)
             {
                 foreach (var room in Model.RoomList)
@@ -255,11 +257,12 @@
                 }
             }
         </select>
+        <span class="k-invalid-msg" data-for="roomId"></span>
     </div>
     <div class="k-edit-label"><label for="attendees">Doctor</label></div>
     <div data-container-for="attendees" class="k-edit-field">
-        <select id="attendees" data-bind="value:attendees" data-role="dropdownlist"
-                data-value-field="value" data-text-field="text">
+        <select id="attendees" name="attendees" data-bind="value:attendees" data-role="dropdownlist"
+                data-value-field="value" data-text-field="text" required data-option-label="--Select Doctor--" data-required-msg="Please select Doctor">
             @if (Model.DoctorList != null && Model.DoctorList.Count > 0)
             {
                 foreach (var doctor in Model.DoctorList)
@@ -268,11 +271,40 @@
                 }
             }
         </select>
+        <span class="k-invalid-msg" data-for="attendees"></span>
     </div>
 </script>
 
 <script type="text/javascript">
     $(function () {
+        $(".doctor-list li.doctor").click(function () {
+            $(".doctor-list li.doctor").removeClass("active");
+            $(this).addClass("active");
+
+            var selectedDoctors = [];
+            if ($(this).hasClass("link-all"))
+            {
+                $(".doctor-list li.doctor").each(function () {
+                    if (!$(this).hasClass("link-all"))
+                    {
+                        selectedDoctors.push(parseInt($(this).data("value")));
+                    }
+                })
+            }
+            else
+            {
+                selectedDoctors.push(parseInt($(this).data("value")));
+            }
+            var scheduler = $("#scheduler").data("kendoScheduler");
+
+            scheduler.dataSource.filter({
+                operator: function (task) {
+                    return $.inArray(task.attendees, selectedDoctors) >= 0;
+                }
+            });
+        });
+        
+
         var roomListJson = JSON.parse('@Html.Raw(Model.RoomListJson)');
 
         $("#scheduler").kendoScheduler({
