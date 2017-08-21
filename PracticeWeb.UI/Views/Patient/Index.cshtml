@@ -22,7 +22,7 @@
         <div class="page-title">
             <h4>
                 <i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Patient</span>  <!-- Button trigger modal -->
-                <button type="button" class="btn btn_add_patient pull-right" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#model_AddPatient">
+                <button type="button" class="btn btn_add_patient pull-right" data-toggle="modal" data-target="#model_AddPatient">
                     <b> Add Patient</b>
                 </button>
             </h4>
@@ -175,15 +175,7 @@
             success: function (data) {
                 
                 $("#PatNum").val(data.PatNum);
-                //$("#Title").find('option[text="' + data.Title + '"]').attr('selected', 'selected');
-                $('#Title option:contains(' + data.Title + ')').each(function () {
-                    if ($(this).text() == data.Title) {
-                        $(this).attr('selected', 'selected');
-                        return false;
-                    }
-                    return true;
-                });
-
+                $("#Title option:contains(" + data.Title + ")").attr('selected', 'selected');
                 $("#FName").val(data.FName);
                 $("#LName").val(data.LName);
                 $("#MiddleI").val(data.MiddleI);
@@ -270,7 +262,7 @@
 
         $("#model_AddPatient").on("hide.bs.modal", function () {
             // put your default event here
-            reset('close');
+            reset();
         });
 
         $('#model_AddPatient').click(function () {
@@ -278,20 +270,20 @@
         });
 
         $('#btnReset').click(function () {
-            reset('reset');
+            reset();
         }); 
 
-        function reset(eventType) {
-            if ($("#PatNum").val() != "0" && $("#PatNum").val() != "" && eventType!="close") {
+        function reset() {
+            if ($("#PatNum").val() != "0" && $("#PatNum").val() != "") {
                 fillpatientdata($("#PatNum").val());
             }
             else{
                 $("#PatNum").val(0);
-                $("#Title").val('0');
+                $("#Title").val('1');
                 $("#FName").val('');
                 $("#LName").val('');
                 $("#MiddleI").val('');
-                $("#Gender").val('0');// $("#Gender").val(),
+                $("#Gender").val('1');// $("#Gender").val(),
                 $('#BirthDate').val('');
                 $("#Email").val('');
                 $("#Address").val('');
@@ -305,7 +297,7 @@
         $('#btnSave').click(function () {
             //if ($("#PatientForm").valid()) {
             //var s = $("#patientFormId").valid();
-            if ($("#FName").val() != "" && $("#LName").val() != "" && $('#BirthDate').val() && $("#Title option:selected").val() !="0" && $("#Gender option:selected").val() !="0") {
+            if ($("#FName").val() != "" && $("#LName").val() != "" && $('#BirthDate').val()) {
                 var postData = {
                     patNum: $("#PatNum").val(),
                     title: $("#Title option:selected").text(),//$("#Title").val(),
@@ -394,8 +386,7 @@
                                                 @Html.LabelFor(model => model.Title, new { @class = "control-label" })<span class="colon">:</span><span class="required-error"> *</span>
 
                                                 @Html.DropDownListFor(model => model.Title, new List<SelectListItem>
-     { new SelectListItem { Text = "--Select Title--", Value = "0", Selected=true},
-       new SelectListItem { Text = "Miss", Value = "1"},
+     { new SelectListItem { Text = "Miss", Value = "1", Selected=true},
        new SelectListItem { Text = "Mr", Value = "2"},
        new SelectListItem { Text = "Mrs", Value = "3"},
        new SelectListItem { Text = "Ms", Value = "4"}
@@ -437,8 +428,7 @@
                                                 @Html.LabelFor(model => model.Gender)<span class="colon">:</span><span class="required-error"> *</span>
 
                                                 @Html.DropDownListFor(model => model.Gender, new List<SelectListItem>
-     { new SelectListItem { Text = "--Select Gender--", Value = "0", Selected=true},
-       new SelectListItem { Text = "Male", Value = "1"},
+     { new SelectListItem { Text = "Male", Value = "1", Selected=true},
        new SelectListItem { Text = "Female", Value = "2"}
        }, new { @class = "form-control", @placeholder = "Select Gender", @style = "Width:100%;" })
                                                 @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
@@ -455,7 +445,7 @@
                                             </div>
                                             <div class="form-group">
                                                 @Html.LabelFor(model => model.Email)<span class="colon">:</span>
-                                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Email Address", @style = "Width:100%;" } })
+                                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Address", @style = "Width:100%;" } })
                                                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
 
                                             </div>
@@ -485,7 +475,7 @@
                                             <!-- Maximum characters -->
                                             <div class="form-group">
                                                 @Html.LabelFor(model => model.Zip)<span class="colon">:</span>
-                                                @Html.EditorFor(model => model.Zip, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Postal Code", @style = "Width:100%;" } })
+                                                @Html.EditorFor(model => model.Zip, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Pin Code", @style = "Width:100%;" } })
                                                 @Html.ValidationMessageFor(model => model.Zip, "", new { @class = "text-danger" })
                                             </div>
                                             <!-- /maximum characters -->

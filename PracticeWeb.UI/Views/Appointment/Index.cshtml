@@ -6,22 +6,13 @@
     ViewBag.PageName = "schedule";
 }
 
-<style type="text/css">
-    .k-grid-content table {
-        border-bottom: solid 1px #d5d5d5;
-    }
-
-    .k-scheduler-content .k-event{
-        color:#fff !important;
-    }
-</style>
 <!-- Page header -->
 <div class="page-header page-header-default">
     <div class="page-header-content">
         <div class="page-title">
             <h4>
                 <i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Schedule</span>  <!-- Button trigger modal -->
-                <button type="button" class="btn btn_add_patient pull-right" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#model_AddPatient">
+                <button type="button" class="btn btn_add_patient pull-right" data-toggle="modal" data-target="#model_AddPatient">
                     <b> Add Patient</b>
                 </button>
             </h4>
@@ -68,10 +59,10 @@
                                         <div id="navbar" class="navbar-collapse collapse doctor-list" aria-expanded="false" style="height: 1px;">
                                             <ul class="nav navbar-nav">
                                                 <li class="doctor link-all active"><a href="#">All</a></li>
-                                                <li class="doctor link1" data-value="1"><a href="#">Dr. Koehn</a></li>
-                                                <li class="doctor link2" data-value="2"><a href="#">Dr. Hankins</a></li>
-                                                <li class="doctor link3" data-value="3"><a href="#contact">Dr. Gandhi</a></li>
-                                                <li class="doctor link4" data-value="4"><a href="#">Dr. Nazeri</a></li>
+                                                <li class="doctor link1" data-value="1"><a href="#">Casa Grande</a></li>
+                                                <li class="doctor link2" data-value="2"><a href="#">Chandler</a></li>
+                                                <li class="doctor link3" data-value="3"><a href="#contact">Phoenix</a></li>
+                                                <li class="doctor link4" data-value="4"><a href="#">Tatum</a></li>
                                             </ul>
                                         </div><!--/.nav-collapse -->
 
@@ -212,7 +203,7 @@
     </div>
     <div class="k-edit-label"><label for="end">End</label></div>
     <div data-container-for="end" class="k-edit-field">
-        <input type="text" data-type="date" data-role="datetimepicker" data-interval="15" data-bind="value:end,invisible:isAllDay" name="end" data-datecompare-msg="End date should be greater than or equal to the start date" />
+        <input type="text" data-type="date" data-role="datetimepicker" data-bind="value:end,invisible:isAllDay" name="end" data-datecompare-msg="End date should be greater than or equal to the start date" />
         <input type="text" data-type="date" data-role="datepicker" data-bind="value:end,visible:isAllDay" name="end" data-datecompare-msg="End date should be greater than or equal to the start date" />
         <span data-bind="text: endTimezone"></span>
         <span data-bind="text: startTimezone, invisible: endTimezone"></span>
@@ -222,10 +213,10 @@
     <div data-container-for="description" class="k-edit-field">
         <textarea name="description" class="k-textbox" data-bind="value:description"></textarea>
     </div>
-    <div class="k-edit-label"><label for="attendees">Chair</label></div>
+    <div class="k-edit-label"><label for="attendees">Room</label></div>
     <div data-container-for="roomId" class="k-edit-field">
         <select id="roomId" name="roomId" data-bind="value:roomId" data-role="dropdownlist"
-                data-value-field="value" data-text-field="text" required data-option-label="--Select Chair--" data-required-msg="Please select chair">
+                data-value-field="value" data-text-field="text" required data-option-label="--Select Room--" data-required-msg="Please select Room">
             @if (Model.RoomList != null && Model.RoomList.Count > 0)
             {
                 foreach (var room in Model.RoomList)
@@ -297,7 +288,7 @@
                 { type: "agenda", title: "List View" }
             ],
             messages: {
-                event: "Appointment",
+                event: "Appoinment",
                 editor: {
                     editorTitle: "Appointment",
                 }
@@ -391,33 +382,30 @@
                 },
             ]
         });
-        $("#scheduler").kendoTooltip({
-            filter: ".k-event:not(.k-event-drag-hint) > div, .k-task",
-            position: "top",
-            width: 250,
-            content: kendo.template($('#template').html())
-        });
+
 
         var scheduler = $("#scheduler").data("kendoScheduler");
 
         var patientSearchTextRequiredDialog = $("#patientSearchTextRequiredDialog");
         patientSearchTextRequiredDialog.kendoDialog({
             width: "400px",
-            title: "Search Result",
+            title: "Booked Appointment",
             closable: false,
             visible: false,
             modal: true,
-            content: "Please enter patient name to view patient appointments",
+            content: "Please enter patient name to view patient booked appointment",
             actions: [
-                { text: 'OK' }
+                { text: 'Ok' }
             ]
         });
 
         $(".search_btn").click(function () {
-            if ($("#searchField").val().trim().length == 0) {
+            if ($("#searchField").val().trim().length == 0)
+            {
                 patientSearchTextRequiredDialog.data("kendoDialog").open();
             }
-            else {
+            else
+            {
                 $('#model_PatientBookedAppoinment').modal('show');
             }
 
@@ -429,63 +417,68 @@
                             //type: "json",
                             transport: {
                                 read: "@Url.Action("BookedAppointments", "Appointment")" + "?patientSearch=" + $("#searchField").val()
-                            },
-                            pageSize: 20
                         },
+                        pageSize: 20
+                    },
                         height: 550,
-                        groupable: false,
-                        sortable: true,
-                        //filterable: true,
+                    groupable: false,
+                    sortable: true,
+                    //filterable: true,
 
-                        filterable: false,
-
-                        pageable: false,
-                        //    {
-                        //    refresh: true,
-                        //    pageSizes: true,
-                        //    buttonCount: 5
-                        //},
-                        columns: [{
-                            field: "PatName",
-                            title: "Patient Name",
-                            //width: 240,
-                            filter: true,
-                        }, {
-                            field: "OperatoryName",
-                            title: "Chair",
-                            //width: 240,
-                            filter: true,
-                        }, {
-                            field: "StartTime",
-                            title: "Start",
-                            template: "#= kendo.toString(kendo.parseDate(StartTime, 'MM/dd/yyyy hh:mm tt'), 'yyyy/MM/dd hh:mm tt') #",
-                            format: "{0:d}",
-                            parseFormats: "{0:yyyy/MM/dd}",
-                            filterable: {
-                                ui: "datepicker",
-                                format: "yyyy/MM/dd"
+                    filterable: {
+                        extra: false, //do not show extra filters
+                        operators: { // redefine the string operators
+                            string: {
+                                    contains: "Contains",
+                                    startswith: "Starts With",
+                                    eq: "Is Equal To"
+                            },
                             }
+                    },
 
-                        }, {
-                            field: "EndTime",
-                            title: "End",
-                            template: "#= kendo.toString(kendo.parseDate(EndTime, 'MM/dd/yyyy hh:mm tt'), 'yyyy/MM/dd hh:mm tt') #",
-                            format: "{0:d}",
-                            parseFormats: "{0:yyyy/MM/dd}",
-                            filterable: {
-                                ui: "datepicker",
-                                format: "yyyy/MM/dd"
-                            }
-                        }, {
-                            field: "DoctorName",
-                            title: "Doctor Name",
-                            filter: true,
-                        },
-                        {
-                            command: [{ name: "View", text: "View Appointment" }]
-                        }]
-                    });
-                }
+                    pageable: {
+                        refresh: true,
+                        pageSizes: true,
+                        buttonCount: 5
+                    },
+                    columns: [{
+                        field: "PatName",
+                        title: "Patient Name",
+                        //width: 240,
+                        filter: true,
+                    }, {
+                        field: "OperatoryName",
+                        title: "Room",
+                        //width: 240,
+                        filter: true,
+                    }, {
+                        field: "StartTime",
+                        title: "Start",
+                        template: "#= kendo.toString(kendo.parseDate(StartTime, 'MM/dd/yyyy hh:mm tt'), 'yyyy/MM/dd hh:mm tt') #",
+                        format: "{0:d}",
+                        parseFormats: "{0:yyyy/MM/dd}",
+                        filterable: {
+                            ui: "datepicker",
+                            format: "yyyy/MM/dd"
+                        }
+
+                    }, {
+                        field: "EndTime",
+                        title: "End",
+                        template: "#= kendo.toString(kendo.parseDate(EndTime, 'MM/dd/yyyy hh:mm tt'), 'yyyy/MM/dd hh:mm tt') #",
+                        format: "{0:d}",
+                        parseFormats: "{0:yyyy/MM/dd}",
+                        filterable: {
+                            ui: "datepicker",
+                            format: "yyyy/MM/dd"
+                        }
+                    }, {
+                        field: "DoctorName",
+                        title: "Doctor Name",
+                        filter: true,
+                    }]
+                });
+            }
             }, 200)
         });
 
@@ -500,37 +493,7 @@
 
 </script>
 
-<script id="template" type="text/x-kendo-template">
-    #var element = target.is(".k-task") ? target : target.parent();#
-    #var uid = element.attr("data-uid");#
-    #var scheduler = target.closest("[data-role=scheduler]").data("kendoScheduler");#
-    #var model = scheduler.occurrenceByUid(uid);#
 
-    #if(model) {#
-    <div style="background-color:lightyellow">
-        <div style="padding-top:5px;text-align:left">
-            <strong>Patient:</strong> #=model.title#
-        </div>
-        <div style="padding-top:5px;text-align:left">
-            <strong>Start:</strong> #=kendo.format('{0:MM/dd/yyyy hh:mm tt}',model.start)#
-        </div>
-        <div style="padding-top:5px;text-align:left">
-            <strong>End:</strong> #=kendo.format('{0:MM/dd/yyyy hh:mm tt}',model.end)#
-        </div>
-        <div style="padding-top:5px;text-align:left">
-            <strong>Description:</strong> #=model.description#
-        </div>
-        <div style="padding-top:5px;text-align:left">
-            <strong>Chair:</strong> #=model.OperatoryName#
-        </div>
-        <div style="padding-top:5px;text-align:left">
-            <strong>Doctor:</strong> #=model.DoctorName#
-        </div>
-    </div>
-    #} else {#
-    <strong>No event data is available</strong>
-    #}#
-</script>
 
 <!-- Patient entry page in modal popup-->
 
@@ -549,13 +512,13 @@
             modal: true,
             content: "All required fields (marked with *) should not be blank",
             actions: [
-                { text: 'OK' }
+                { text: 'Ok' }
             ]
         });
 
         $("#model_AddPatient").on("hide.bs.modal", function () {
             // put your default event here
-            reset('close');
+            reset();
         });
 
         $('#model_AddPatient').click(function () {
@@ -563,12 +526,12 @@
         });
 
         $('#btnReset').click(function () {
-            reset('reset');
+            reset();
         });
 
-        function reset(eventType) {
+        function reset() {
 
-            if ($("#PatientModel_PatNum").val() != "0" && $("#PatientModel_PatNum").val() != "" && eventType != "close") {
+            if ($("#PatientModel_PatNum").val() != "0" && $("#PatientModel_PatNum").val() != "") {
                 //fillpatientdata($("#PatientModel_PatNum").val());
             }
             else {
@@ -591,7 +554,7 @@
         $('#btnSave').click(function () {
             //if ($("#PatientForm").valid()) {
             //var s = $("#patientFormId").valid();
-            if ($("#PatientModel_FName").val() != "" && $("#PatientModel_LName").val() != "" && $('#PatientModel_BirthDate').val() && $("#PatientModel_Title option:selected").val() != "0" && $("#PatientModel_Gender option:selected").val() != "0") {
+            if ($("#PatientModel_FName").val() != "" && $("#PatientModel_LName").val() != "" && $("#PatientModel_BirthDate").val()) {
                 var postData = {
                     patNum: $("#PatientModel_PatNum").val(),
                     title: $("#PatientModel_Title option:selected").text(),//$("#PatientModel_Title").val(),
@@ -677,8 +640,7 @@
                                                 @Html.LabelFor(model => model.PatientModel.Title, new { @class = "control-label" })<span class="colon">:</span><span class="required-error"> *</span>
 
                                                 @Html.DropDownListFor(model => model.PatientModel.Title, new List<SelectListItem>
-     { new SelectListItem { Text = "--Select Title--", Value = "0", Selected=true},
-       new SelectListItem { Text = "Miss", Value = "1"},
+     { new SelectListItem { Text = "Miss", Value = "1", Selected=true},
        new SelectListItem { Text = "Mr", Value = "2"},
        new SelectListItem { Text = "Mrs", Value = "3"},
        new SelectListItem { Text = "Ms", Value = "4"}
@@ -720,8 +682,7 @@
                                                 @Html.LabelFor(model => model.PatientModel.Gender)<span class="colon">:</span><span class="required-error"> *</span>
 
                                                 @Html.DropDownListFor(model => model.PatientModel.Gender, new List<SelectListItem>
-     { new SelectListItem { Text = "--Select Gender--", Value = "0", Selected=true},
-       new SelectListItem { Text = "Male", Value = "1"},
+     { new SelectListItem { Text = "Male", Value = "1", Selected=true},
        new SelectListItem { Text = "Female", Value = "2"}
        }, new { @class = "form-control", @placeholder = "Select Gender", @style = "Width:100%;" })
                                                 @Html.ValidationMessageFor(model => model.PatientModel.Gender, "", new { @class = "text-danger" })
@@ -738,7 +699,7 @@
                                             </div>
                                             <div class="form-group">
                                                 @Html.LabelFor(model => model.PatientModel.Email)<span class="colon">:</span>
-                                                @Html.EditorFor(model => model.PatientModel.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Email Address", @style = "Width:100%;" } })
+                                                @Html.EditorFor(model => model.PatientModel.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Address", @style = "Width:100%;" } })
                                                 @Html.ValidationMessageFor(model => model.PatientModel.Email, "", new { @class = "text-danger" })
 
                                             </div>
@@ -768,7 +729,7 @@
                                             <!-- Maximum characters -->
                                             <div class="form-group">
                                                 @Html.LabelFor(model => model.PatientModel.Zip)<span class="colon">:</span>
-                                                @Html.EditorFor(model => model.PatientModel.Zip, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Postal Code", @style = "Width:100%;" } })
+                                                @Html.EditorFor(model => model.PatientModel.Zip, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Pin Code", @style = "Width:100%;" } })
                                                 @Html.ValidationMessageFor(model => model.PatientModel.Zip, "", new { @class = "text-danger" })
                                             </div>
                                             <!-- /maximum characters -->
@@ -868,13 +829,13 @@
 
 <div class="modal fade" id="model_PatientBookedAppoinment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
-        <div class="modal-content" style="width:800px;">
+        <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">
                         &times;
                     </span>
-                </button> <h4 class="modal-title" id="myModalLabel">Search Result</h4>
+                </button> <h4 class="modal-title" id="myModalLabel">Booked Apppinment</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
