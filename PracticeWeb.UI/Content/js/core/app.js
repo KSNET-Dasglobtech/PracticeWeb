@@ -371,6 +371,7 @@ $(function() {
 
         // Toggle min sidebar class
         $('body').toggleClass('sidebar-xs');
+        $("#scheduler").data("kendoScheduler").refresh();
     });
 
 

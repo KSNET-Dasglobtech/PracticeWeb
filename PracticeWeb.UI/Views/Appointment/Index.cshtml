@@ -10,6 +10,10 @@
     .k-grid-content table {
         border-bottom: solid 1px #d5d5d5;
     }
+
+    .k-scheduler-content .k-event{
+        color:#fff !important;
+    }
 </style>
 <!-- Page header -->
 <div class="page-header page-header-default">
@@ -64,10 +68,10 @@
                                         <div id="navbar" class="navbar-collapse collapse doctor-list" aria-expanded="false" style="height: 1px;">
                                             <ul class="nav navbar-nav">
                                                 <li class="doctor link-all active"><a href="#">All</a></li>
-                                                <li class="doctor link1" data-value="1"><a href="#">Casa Grande</a></li>
-                                                <li class="doctor link2" data-value="2"><a href="#">Chandler</a></li>
-                                                <li class="doctor link3" data-value="3"><a href="#contact">Phoenix</a></li>
-                                                <li class="doctor link4" data-value="4"><a href="#">Tatum</a></li>
+                                                <li class="doctor link1" data-value="1"><a href="#">Dr. Koehn</a></li>
+                                                <li class="doctor link2" data-value="2"><a href="#">Dr. Hankins</a></li>
+                                                <li class="doctor link3" data-value="3"><a href="#contact">Dr. Gandhi</a></li>
+                                                <li class="doctor link4" data-value="4"><a href="#">Dr. Nazeri</a></li>
                                             </ul>
                                         </div><!--/.nav-collapse -->
 
@@ -505,13 +509,22 @@
     #if(model) {#
     <div style="background-color:lightyellow">
         <div style="padding-top:5px;text-align:left">
-            <strong>event start:</strong> #=kendo.format('{0:MM/dd/yyyy HH:mm}',model.start)#
+            <strong>Patient:</strong> #=model.title#
         </div>
         <div style="padding-top:5px;text-align:left">
-            <strong>event end:</strong> #=kendo.format('{0:MM/dd/yyyy HH:mm}',model.end)#
+            <strong>Start:</strong> #=kendo.format('{0:MM/dd/yyyy hh:mm tt}',model.start)#
         </div>
         <div style="padding-top:5px;text-align:left">
-            <strong>event description:</strong> #=model.description#
+            <strong>End:</strong> #=kendo.format('{0:MM/dd/yyyy hh:mm tt}',model.end)#
+        </div>
+        <div style="padding-top:5px;text-align:left">
+            <strong>Description:</strong> #=model.description#
+        </div>
+        <div style="padding-top:5px;text-align:left">
+            <strong>Chair:</strong> #=model.OperatoryName#
+        </div>
+        <div style="padding-top:5px;text-align:left">
+            <strong>Doctor:</strong> #=model.DoctorName#
         </div>
     </div>
     #} else {#
