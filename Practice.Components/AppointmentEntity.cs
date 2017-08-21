@@ -156,7 +156,7 @@ namespace PracticeWeb.Components
         /// <param name="Lead"></param>
         public List<Operatory> GetAllRooms()
         {
-            return db.Operatories.OrderBy(m=>m.OperatoryName).ToList();
+            return db.Operatories.OrderBy(m=>m.OperatoryID).ToList();
 
         }
 
