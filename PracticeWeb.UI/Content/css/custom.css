@@ -186,6 +186,7 @@
 #people {
 	position: absolute;
 	left: 0;
+    z-index:1;
 }
 #alex {
 	position: absolute;
