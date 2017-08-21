@@ -74,7 +74,7 @@ namespace PracticeWeb.UI.Controllers
             patient.MiddleI = middleName;
             patient.Gender = Convert.ToByte(gender);
             if (!string.IsNullOrEmpty(birthdate))
-                patient.BirthDate = Convert.ToDateTime(birthdate);
+                patient.BirthDate = DateTimeOffset.Parse(birthdate).UtcDateTime;// Convert.ToDateTime(birthdate);
             else
                 patient.BirthDate = DateTime.Now;
             patient.Email = email;
